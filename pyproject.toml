@@ -6,7 +6,10 @@ authors = [{ name = "Anthony Caliani", email = "avcaliani.it@gmail.com" }]
 license = "MIT"
 requires-python = ">=3.10,<3.11"
 dependencies = [
-    "fastapi[all]>=0.73.0,<0.74.0",
+    "fastapi>=0.73.0,<0.74.0",
+    "uvicorn[standard]>=0.12.0,<0.16.0",
+    "email-validator>=1.1.1,<2.0.0",
+    "requests>=2.24.0,<3.0.0",
     "dynaconf>=3.1.7,<4.0.0",
     "python-jose[cryptography]>=3.3.0,<4.0.0",
     "passlib[bcrypt]>=1.7.4,<2.0.0",
@@ -22,9 +25,6 @@ dev = [
 
 [tool.uv]
 package = false
-# pyyaml 5.4.1 (fastapi[all]'s pin) has no cp310 wheel and fails to build from
-# source against modern setuptools; override to a version with proper wheels.
-override-dependencies = ["pyyaml>=6.0"]
 
 [tool.black]
 line-length = 110
