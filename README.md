@@ -9,6 +9,7 @@
 ![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white)
 ![Code Style](https://img.shields.io/badge/code%20style-black-000000.svg)
 ![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)
+![Latest Tag](https://img.shields.io/github/v/tag/avcaliani/deep-dive-fast-api?logo=github&logoColor=white&color=blueviolet)
 
 My goal with this repository is an in-depth exploration of FastAPI internals, the async
 execution model, and production-ready backend design.
