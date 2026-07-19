@@ -13,21 +13,21 @@ info:
 	@echo ""
 
 install:
-	poetry install
-	poetry run pre-commit install
-	poetry run pre-commit run -a -v
+	uv sync
+	uv run pre-commit install
+	uv run pre-commit run -a -v
 
 update-deps:
-	poetry update
-	poetry run pre-commit autoupdate
+	uv lock --upgrade
+	uv run pre-commit autoupdate
 
 test:
-	poetry run pytest -sx
+	uv run pytest -sx
 
 run:
 	# APP_ENV is an environment variable used by Dynaconf
 	# to indicate which profile should be used.
-	APP_ENV=dev uvicorn main:app --log-config "resources/log-config.yml" --reload
+	APP_ENV=dev uv run uvicorn main:app --log-config "resources/log-config.yml" --reload
 
 deploy:
 	git tag "v$(NEW_VERSION)"
