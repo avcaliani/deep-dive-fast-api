@@ -8,11 +8,13 @@
 - `app/routers/` - API route handlers
 - `app/services/` - business logic
 - `app/utils/` - auth & MongoDB helpers
+- `app/config.py` - Dynaconf settings loader
 - `app/models.py` - Pydantic models
 - `static/` - static files served by the API
 - `main.py` - FastAPI app entrypoint
-- `config.py` - Dynaconf settings loader
 - `tests/` - unit tests
+- `resources/settings.toml` / `resources/.secrets.toml` - Dynaconf settings
+- `resources/init-mongo.js` - Mongo init script (creates the API's DB user)
 - `resources/log-config.yml` - Uvicorn logging config
 - `docker-compose.yml` - local MongoDB service
 - `Dockerfile` - container build for the API
@@ -20,7 +22,7 @@
 
 ## How to run
 
-Requires `.secrets.toml` (see README) and MongoDB running via `docker-compose up -d`.
+Requires `resources/.secrets.toml` (see README) and MongoDB running via `docker-compose up -d`.
 
 - install deps: `make install`
 - run unit tests: `make test`

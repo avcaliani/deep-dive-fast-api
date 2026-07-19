@@ -2,7 +2,7 @@ from fastapi.encoders import jsonable_encoder
 from motor.motor_asyncio import AsyncIOMotorClient
 from pydantic import BaseModel
 
-from config import settings
+from app.config import settings
 
 MONGODB_CONFIG = settings.MONGODB_CONFIG
 DATABASE = settings.MONGODB_DATABASE

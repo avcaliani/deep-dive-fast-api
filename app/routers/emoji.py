@@ -4,9 +4,8 @@ from typing import Optional
 
 from fastapi import APIRouter, Depends
 
-from config import settings
-
 from app import dependencies
+from app.config import settings
 
 SECRET = settings.SECRET
 EMOJIS = settings.EMOJIS
