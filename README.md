@@ -1,4 +1,6 @@
-<img src=".docs/logo.png" width="64px" align="right"/>
+<div align="center">
+
+<img src=".docs/logo.png" width="64px"/>
 
 # Fast App - API
 
@@ -11,7 +13,42 @@
 My goal with this repository is an in-depth exploration of FastAPI internals, the async
 execution model, and production-ready backend design.
 
-Here is the **project structure** 👇
+</div>
+
+## Endpoints
+
+```text
+GET  /                                 API home page (HTML)
+POST /auth                             login -> JWT bearer token
+GET  /emoji/                           random lucky emojis (auth required)
+GET  /emoji/{item}                     emoji by index (auth required)
+GET  /mood/{item}                      mood message by Mood enum (auth required)
+GET  /users/me                         current authenticated user (auth required)
+GET  /users/{id}                       user by id (auth required)
+POST /users/                           create user (auth required)
+```
+
+## User Shape
+
+```json
+{
+  "id": "591528c0-3029-4f8c-9aa8-fee16e271dbd",
+  "name": "Anthony",
+  "email": "anthony@github.com",
+  "birthdate": "1990-01-01",
+  "mood": "😁",
+  "enabled": true,
+  "updated_at": "2026-07-19T12:00:00.000000"
+}
+```
+
+## MongoDB
+
+- Database: `fastAppDB`, collection: `users`
+- `_id` is a Mongo ObjectId-format string, not a real BSON ObjectId
+- `resources/init-mongo.js` creates the API's DB user on the container's first start
+
+## Folder Structure
 
 ```bash
 .
@@ -32,26 +69,22 @@ Here is the **project structure** 👇
 └── docker-compose.yml    # 🧩 MongoDB service for local dev.
 ```
 
-## Quick Start
+## Getting Started
 
-Create your Python virtual environment...
+One-time setup: Python env, dependencies, and a Dynaconf secrets file.
+
+<details>
+<summary>Show setup commands 👇</summary>
 
 ```bash
-# 👇 Setting PyEnv version
-pyenv local 3.10.0
-
 # 👇 Virtual Environment
-python -m venv .venv \
-  && source .venv/bin/activate \
-  && python -m pip install --upgrade pip
+pyenv local 3.10.0
+python -m venv .venv && source .venv/bin/activate
 
 # 👇 Dependencies
 make install
-```
 
-Then, create a Dynaconf secrets file as follows.
-
-```bash
+# 👇 Dynaconf secrets file
 echo "
 [default]
 TOKEN_SECRET_KEY = '$(openssl rand -hex 32)'
@@ -62,21 +95,28 @@ SECRET = '🤫'
 " > resources/.secrets.toml
 ```
 
-The API uses MongoDB, so start it up with Docker Compose before running the app.
+</details>
+
+Commands to run the API locally.
+
+<details>
+<summary>Show run commands 👇</summary>
 
 ```bash
+# Start MongoDB
 docker-compose up -d
-```
 
-Finally, start the API server.
-
-> `APP_ENV` is an environment variable used by Dynaconf to indicate which profile should be used.
-
-```bash
+# Start the API
 make run
+
+# Run tests
+make test
+
+# Sanity Check
+curl -s http://127.0.0.1:8000/
 ```
 
-After executing the previous command you are ready to access the API resources.
+</details>
 
 - API Home: `http://127.0.0.1:8000`
 - Swagger: `http://127.0.0.1:8000/docs`
@@ -84,41 +124,27 @@ After executing the previous command you are ready to access the API resources.
 
 ![home](.docs/home.png)
 
-### Example
+## Docker
 
-Response **OK**...
+Build and run the API itself in a container (still requires `resources/.secrets.toml` and MongoDB running as above).
 
-```bash
-curl -X 'GET' 'http://127.0.0.1:8000/emoji'
-```
-
-```json
-{
-  "lucky_emojis": [
-    "🫐",
-    "🥭"
-  ],
-  "secret": "🚀",
-  "consulted_at": "2021-10-22T11:36:48.533441"
-}
-```
-
-### Running with Docker
-
-Alternatively, build and run the API itself in a container (still requires `resources/.secrets.toml` and MongoDB running as above).
+<details>
+<summary>Show docker commands 👇</summary>
 
 ```bash
 docker build -t fast-app-api .
 docker run -p 8000:8000 --env APP_ENV=dev fast-app-api
 ```
 
-### References
+</details>
 
-- [Fast API: docs](https://fastapi.tiangolo.com/)
-- [pydantic: docs](https://pydantic-docs.helpmanual.io/)
-- [uv: docs](https://docs.astral.sh/uv/)
-- [pre-commit: docs](https://pre-commit.com/)
-- [MongoDB: Quick Start FastAPI](https://www.mongodb.com/developer/quickstart/python-quickstart-fastapi/)
+## References
+
+- [FastAPI: docs](https://fastapi.tiangolo.com/) — the framework this whole repo explores
+- [pydantic: docs](https://docs.pydantic.dev/) — v2 data validation, used throughout `app/models.py`
+- [uv: docs](https://docs.astral.sh/uv/) — dependency management
+- [pre-commit: docs](https://pre-commit.com/) — hooks run in CI, see `.pre-commit-config.yaml`
+- [MongoDB: Quick Start FastAPI](https://www.mongodb.com/developer/quickstart/python-quickstart-fastapi/) — the ObjectId pattern in `app/models.py` follows this guide
 - [Icon made by Strokeicon from IconFinder](https://www.iconfinder.com/icons/2191531/best_fast_flash_good_light_speed_icon)
 
-> 💡 Fast API has an awesome documentation!
+> 💡 Try `.docs/curl-requests.sh` for a runnable walkthrough of every endpoint above.
