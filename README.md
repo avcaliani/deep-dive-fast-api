@@ -148,4 +148,4 @@ docker run -p 8000:8000 --env APP_ENV=dev fast-app-api
 - [MongoDB: Quick Start FastAPI](https://www.mongodb.com/developer/quickstart/python-quickstart-fastapi/) — the ObjectId pattern in `app/models.py` follows this guide
 - [Icon made by Strokeicon from IconFinder](https://www.iconfinder.com/icons/2191531/best_fast_flash_good_light_speed_icon)
 
-> 💡 Try `.docs/curl-requests.sh` for a runnable walkthrough of every endpoint above.
+> 💡 See [`.docs/curl-requests.md`](.docs/curl-requests.md) for copy-pasteable curls to try the public endpoints above.
