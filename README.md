@@ -115,7 +115,7 @@ docker run -p 8000:8000 --env APP_ENV=dev fast-app-api
 
 - [Fast API: docs](https://fastapi.tiangolo.com/)
 - [pydantic: docs](https://pydantic-docs.helpmanual.io/)
-- [Poetry CLI: docs](https://python-poetry.org/docs/cli/)
+- [uv: docs](https://docs.astral.sh/uv/)
 - [pre-commit: docs](https://pre-commit.com/)
 - [MongoDB: Quick Start FastAPI](https://www.mongodb.com/developer/quickstart/python-quickstart-fastapi/)
 - [Icon made by Strokeicon from IconFinder](https://www.iconfinder.com/icons/2191531/best_fast_flash_good_light_speed_icon)

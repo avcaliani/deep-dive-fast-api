@@ -1,23 +1,21 @@
 FROM python:3.10
 
 # 👇 Environment Variables
-ENV POETRY_VERSION='1.1.14' \
-    POETRY_VIRTUALENVS_CREATE=false \
+ENV UV_VERSION='0.11.29' \
     PATH="/root/.local/bin:$PATH"
 
 WORKDIR /opt/app
 
-# 👇 Installing Poetry
+# 👇 Installing uv
 RUN apt-get update \
-    && apt-get install -y build-essential python3-dev python3-setuptools curl \
-    && pip install --upgrade --no-cache-dir pip \
-    && curl -sSL https://install.python-poetry.org | python - --version "$POETRY_VERSION"
+    && apt-get install -y curl \
+    && curl -LsSf "https://astral.sh/uv/${UV_VERSION}/install.sh" | sh
 
 # 👇 Adding Files
 COPY . .
 
 # 👇 Installing project dependencies
-RUN poetry install --no-dev
+RUN uv sync --frozen --no-dev
 
 # 🤘 Let's rock
-CMD [ "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--log-config", "resources/log-config.yml"]
+CMD [ "uv", "run", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--log-config", "resources/log-config.yml"]
