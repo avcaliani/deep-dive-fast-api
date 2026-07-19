@@ -20,7 +20,7 @@ addopts = "-vv --tb=native --cov=app"
 [tool.coverage.report]
 exclude_lines = ["nocover"]
 show_missing = true
-omit = ["*/dependencies.py", "*/enums.py", "*/middlewares.py", "*/models.py"]
+omit = ["*/dependencies.py", "*/middlewares.py", "*/models.py"]
 
 [tool.skjold]
 sources = ["pypa"]

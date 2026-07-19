@@ -1,10 +1,15 @@
 from datetime import date, datetime
+from enum import Enum
 from typing import Any, Optional
 
 from bson import ObjectId
 from pydantic import BaseModel, EmailStr, Field
 
-from app.enums import Mood
+
+class Mood(str, Enum):
+    happy = "😁"
+    angry = "😡"
+    insightful = "🤔"
 
 
 class UUID(ObjectId):
