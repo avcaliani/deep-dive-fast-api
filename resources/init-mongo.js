@@ -2,7 +2,7 @@
  * LOCAL DEVELOPMENT ONLY!
  * DO NOT USE PRODUCTION DATA HERE!
  *
- * Mongo init script mounted via docker-compose.yml into /docker-entrypoint-initdb.d, 
+ * Mongo init script mounted via docker-compose.yml into /docker-entrypoint-initdb.d,
  * so it runs automatically on the container's first start to create the API's DB user.
  */
 
