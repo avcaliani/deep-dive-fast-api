@@ -5,7 +5,7 @@ from fastapi import HTTPException
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 
-from config import settings
+from app.config import settings
 
 SECRET_KEY = settings.TOKEN_SECRET_KEY
 ALGORITHM = settings.TOKEN_ALGORITHM

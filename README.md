@@ -19,16 +19,17 @@ Here is the **project structure** 👇
 │   ├── routers/         # 🚏 API route handlers.
 │   ├── services/        # ⚙️ Business logic.
 │   ├── utils/           # 🔧 Auth & MongoDB helpers.
+│   ├── config.py        # ⚙️ Dynaconf settings loader.
 │   └── models.py        # 📦 Pydantic models.
 ├── resources/
-│   └── log-config.yml   # 📝 Uvicorn logging config.
+│   ├── init-mongo.js    # 🌱 Mongo init script (creates the API's DB user).
+│   ├── log-config.yml   # 📝 Uvicorn logging config.
+│   └── settings.toml    # 📝 Dynaconf settings.
 ├── static/               # 🖼️ Static files served by the API.
 ├── tests/                # ✅ Unit tests.
-├── config.py             # ⚙️ Dynaconf settings loader.
 ├── main.py               # 🚀 FastAPI app entrypoint.
 ├── Dockerfile            # 🐋 Dockerfile for the API.
-├── docker-compose.yml    # 🧩 MongoDB service for local dev.
-└── settings.toml         # 📝 Dynaconf settings.
+└── docker-compose.yml    # 🧩 MongoDB service for local dev.
 ```
 
 ## Quick Start
@@ -58,7 +59,7 @@ SECRET = '🚀'  # Dev Secret
 
 [prod]
 SECRET = '🤫'
-" > .secrets.toml
+" > resources/.secrets.toml
 ```
 
 The API uses MongoDB, so start it up with Docker Compose before running the app.
@@ -104,7 +105,7 @@ curl -X 'GET' 'http://127.0.0.1:8000/emoji'
 
 ### Running with Docker
 
-Alternatively, build and run the API itself in a container (still requires `.secrets.toml` and MongoDB running as above).
+Alternatively, build and run the API itself in a container (still requires `resources/.secrets.toml` and MongoDB running as above).
 
 ```bash
 docker build -t fast-app-api .

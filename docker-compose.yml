@@ -10,4 +10,4 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - .mock/mongo.js:/docker-entrypoint-initdb.d/mongo.js
+      - ./resources/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js
