@@ -19,14 +19,14 @@ execution model, and production-ready backend design.
 ## Endpoints
 
 ```text
-GET  /                                 API home page (HTML)
-POST /auth                             login -> JWT bearer token
-GET  /emoji/                           random lucky emojis (auth required)
-GET  /emoji/{item}                     emoji by index (auth required)
-GET  /mood/{item}                      mood message by Mood enum (auth required)
-GET  /users/me                         current authenticated user (auth required)
-GET  /users/{id}                       user by id (auth required)
-POST /users/                           create user (auth required)
+GET  /                  API home page (HTML)
+POST /auth              login -> JWT bearer token
+GET  /emoji/            random lucky emojis (auth required)
+GET  /emoji/{item}      emoji by index (auth required)
+GET  /mood/{item}       mood message by Mood enum (auth required)
+GET  /users/me          current authenticated user (auth required)
+GET  /users/{id}        user by id (auth required)
+POST /users/            create user (auth required)
 ```
 
 ## User Shape
