@@ -10,7 +10,7 @@ COLLECTION = "users"
 async def find(id_: str = None, email: str = None) -> dict:
     condition = {"_id": id_} if id_ else {"email": email}
     user = await mongo.find_one(COLLECTION, condition)
-    return User(**user).dict(exclude={"password"})
+    return User(**user).model_dump(exclude={"password"})
 
 
 async def create(user: User) -> dict:
@@ -18,4 +18,4 @@ async def create(user: User) -> dict:
     user.password = auth.hash_password(user.password)
     user = await mongo.create(COLLECTION, user)
     log.info(f"New Record! Collection: {COLLECTION} | Data: {user}")
-    return User(**user).dict()
+    return User(**user).model_dump()

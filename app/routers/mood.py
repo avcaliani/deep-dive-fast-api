@@ -11,7 +11,7 @@ router = APIRouter(prefix="/mood", tags=["mood"], dependencies=[Depends(dependen
 
 @router.get("/{item}")
 async def mood(
-    item: Mood, text_mode: Optional[str] = Query(None, min_length=4, max_length=8, regex=r"CAPS(LOCK)?")
+    item: Mood, text_mode: Optional[str] = Query(None, min_length=4, max_length=8, pattern=r"CAPS(LOCK)?")
 ):
     messages = {
         Mood.happy: "If in doubt, Meriadoc, always follow your nose!",
