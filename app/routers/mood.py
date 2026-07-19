@@ -4,7 +4,7 @@ from typing import Optional
 from fastapi import APIRouter, Depends, Query
 
 from app import dependencies
-from app.enums import Mood
+from app.models import Mood
 
 router = APIRouter(prefix="/mood", tags=["mood"], dependencies=[Depends(dependencies.get_user)])
 
