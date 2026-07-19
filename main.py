@@ -20,7 +20,7 @@ from app.routers import base, emoji, mood, user
 app = FastAPI(
     title="Fast App",
     description="Fast App it is my first FastAPI app 🚀",
-    version="1.0.0",
+    version="1.1.0",
     contact={
         "name": "Anthony Caliani",
         "url": "https://github.com/avcaliani",

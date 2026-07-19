@@ -1,6 +1,6 @@
 [project]
 name = "fast-app-api"
-version = "1.0.0"
+version = "1.1.0"
 description = "Fast App - API"
 readme = "README.md"
 authors = [{ name = "Anthony Caliani", email = "avcaliani.it@gmail.com" }]
