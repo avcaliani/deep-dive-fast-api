@@ -1,0 +1,28 @@
+name: fast-app-api CI
+
+# Trigger: Push and Pull targeting Main Branch
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# Available GitHub Actions
+# https://github.com/marketplace?type=actions
+jobs:
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-slim
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pre-commit/action@v3
+
+  test:
+    name: Test
+    needs: [lint]
+    runs-on: ubuntu-slim
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-uv
+      - run: uv run pytest -sx
