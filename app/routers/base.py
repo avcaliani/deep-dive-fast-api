@@ -26,7 +26,7 @@ async def get_token(form: OAuth2PasswordRequestForm = Depends()):
     #     password: str
     #
     # async def get_token(login: Login): ...
-    user = await service.find(email=form.username)
+    user = await service.find(email=form.username, include_password=True)
     password_ok = auth.check_password(plain=form.password, hashed=user.get("password"))
     if not user or not password_ok:
         raise auth.EXCEPTION_INVALID_CREDENTIALS

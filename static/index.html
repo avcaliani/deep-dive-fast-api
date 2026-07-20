@@ -8,87 +8,366 @@
     <link rel="icon" type="image/svg+xml" href="/static/favicon.svg"/>
     <title>Duff API</title>
     <style>
+        :root {
+            --bg-dark: #241407;
+            --bg-darker: #170d04;
+            --amber: #E29A3C;
+            --amber-light: #F3C77A;
+            --cream: #FFF3D6;
+            --ink: #1A1A1A;
+            --card-bg: #33200F;
+            --card-border: #4A2E17;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
         body {
-            background: white;
-            color: black;
+            margin: 0;
+            background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-darker) 100%);
+            color: var(--cream);
             text-align: center;
-            font-family: Arial, Helvetica, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
         a {
             text-decoration: none;
+            color: var(--amber-light);
         }
 
-        #logo {
-            font-size: 4em;
-            margin: 3em auto 0 auto;
-            display: block;
+        a:hover {
+            color: var(--cream);
         }
 
-        #github {
-            display: block;
-            font-size: 1.5em;
-            margin-bottom: 1em;
+        header {
+            position: relative;
+            padding: 3em 1em 2em 1em;
+            overflow: hidden;
         }
 
-        #footer {
-            width: 100%;
-            bottom: 0;
-            left: 0;
-            padding: 5em 0px;
+        #glow {
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 360px;
+            height: 360px;
+            background: radial-gradient(circle, rgba(226, 154, 60, 0.35) 0%, rgba(226, 154, 60, 0) 70%);
+            pointer-events: none;
         }
 
-        #footer, #footer > a {
-            font-size: x-small;
-            color: gray;
-
+        #mascot {
+            position: relative;
+            width: 190px;
+            height: auto;
         }
 
         h1 {
-            margin-bottom: 0;
+            position: relative;
+            margin: 0.4em 0 0 0;
+            font-size: 2.2em;
+            color: var(--amber-light);
         }
 
-        h3 {
-            color: #7ACED7;
-            margin-top: .5em;
+        .tagline {
+            position: relative;
+            margin: 0.5em auto 0 auto;
+            max-width: 32em;
+            color: var(--cream);
+            opacity: 0.85;
+            font-size: 0.95em;
         }
 
-        p, p > a {
-            font-size: small;
-            color: gray;
+        nav {
+            position: relative;
+            margin-top: 1.3em;
         }
 
-        p > a:hover {
-            color: #7ACED7;
+        nav a {
+            display: inline-block;
+            margin: 0 0.4em;
+            padding: 0.5em 1.1em;
+            border: 1px solid var(--card-border);
+            border-radius: 999px;
+            font-size: 0.9em;
+        }
+
+        nav a:hover {
+            border-color: var(--amber);
+            background: rgba(226, 154, 60, 0.1);
         }
 
         #clock {
-            color: #7ACED7;
+            display: block;
+            position: relative;
+            margin-top: 1.2em;
+            color: var(--amber-light);
             font-size: small;
+            opacity: 0.8;
+        }
+
+        main {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 0 1.2em 2em 1.2em;
+        }
+
+        main h2 {
+            color: var(--amber-light);
+            margin-bottom: 0.2em;
+        }
+
+        main > p.lead {
+            opacity: 0.75;
+            margin-top: 0;
+            font-size: 0.9em;
+        }
+
+        .card {
+            text-align: left;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 1em 1.2em;
+            margin: 1.2em 0;
+        }
+
+        .card-head {
+            display: flex;
+            align-items: center;
+            gap: 0.5em;
+            margin-bottom: 0.6em;
+            font-size: 0.95em;
+        }
+
+        .method {
+            font-weight: bold;
+            color: var(--ink);
+            background: var(--amber);
+            border-radius: 4px;
+            padding: 0.15em 0.5em;
+            font-size: 0.8em;
+        }
+
+        .card-head code {
+            color: var(--cream);
+        }
+
+        .tag {
+            margin-left: auto;
+            opacity: 0.6;
+            font-size: 0.8em;
+        }
+
+        pre {
+            background: var(--bg-darker);
+            border-radius: 8px;
+            padding: 0.9em 1em;
+            overflow-x: auto;
+            margin: 0 0 0.7em 0;
+        }
+
+        pre code {
+            font-family: "SF Mono", Consolas, Monaco, monospace;
+            font-size: 0.82em;
+            color: var(--amber-light);
+            white-space: pre;
+        }
+
+        .copy-btn {
+            font-family: inherit;
+            font-size: 0.85em;
+            color: var(--cream);
+            background: rgba(226, 154, 60, 0.15);
+            border: 1px solid var(--card-border);
+            border-radius: 6px;
+            padding: 0.4em 0.8em;
+            cursor: pointer;
+        }
+
+        .copy-btn:hover {
+            border-color: var(--amber);
+        }
+
+        .warn {
+            margin: 0.7em 0 0 0;
+            font-size: 0.82em;
+            opacity: 0.8;
+            line-height: 1.4;
+        }
+
+        .warn code {
+            font-size: 0.95em;
+        }
+
+        footer {
+            padding: 3em 0 2.5em 0;
+        }
+
+        #github {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255, 243, 214, 0.1);
+            font-size: 1.4em;
+            transition: background 0.15s ease;
+        }
+
+        #github:hover {
+            background: rgba(255, 243, 214, 0.2);
         }
     </style>
 </head>
 
 <body>
-<div>
-    <span id="logo">🍻</span>
-    <h1>Duff</h1>
-    <h3>API</h3>
-    <p>
-        <a href="/docs">Swagger</a> | <a href="/redoc">ReDoc</a>
-    </p>
+<header>
+    <div id="glow"></div>
+    <img id="mascot" src="/static/favicon.svg" alt="Duff API mascot bear"/>
+    <h1>Duff Rewards Club</h1>
+    <p class="tagline">A members app for Duff drinkers. Auth is your membership card, <code>/mood</code>
+        is your daily check-in, <code>/emoji</code> is the "look under the cap" prize draw. 🍻</p>
+    <nav>
+        <a href="/docs">Swagger</a>
+        <a href="/redoc">ReDoc</a>
+    </nav>
     <span id="clock">...</span>
-</div>
-<div id="footer">
+</header>
+
+<main>
+    <h2>Try It Out</h2>
+    <p class="lead">Every API endpoint — copy, paste, run.</p>
+
+    <div class="card">
+        <div class="card-head">
+            <span class="method">GET</span>
+            <code>/</code>
+            <span class="tag">home page</span>
+        </div>
+        <pre><code>curl -s http://127.0.0.1:8000/</code></pre>
+        <button class="copy-btn">📋 Copy</button>
+    </div>
+
+    <div class="card">
+        <div class="card-head">
+            <span class="method">POST</span>
+            <code>/auth</code>
+            <span class="tag">login</span>
+        </div>
+        <pre><code>curl -s -X POST http://127.0.0.1:8000/auth \
+  --data-urlencode "username=bart@duff.com" \
+  --data-urlencode "password=Test1234!"</code></pre>
+        <button class="copy-btn">📋 Copy</button>
+        <p class="warn">⚠️ Known bug: login always returns 401. <code>app/services/user.py</code>'s
+            <code>find()</code> strips the password field before returning it, but
+            <code>app/routers/base.py</code>'s <code>get_token()</code> relies on that same
+            <code>find()</code> to check it — so the hash is always <code>None</code> and
+            <code>check_password()</code> always fails, regardless of credentials.</p>
+    </div>
+
+    <p class="lead">Everything below needs a membership card — set <code>$TOKEN</code> from the
+        <code>/auth</code> response first: <code>export TOKEN=...</code></p>
+
+    <div class="card">
+        <div class="card-head">
+            <span class="method">GET</span>
+            <code>/mood/{item}</code>
+            <span class="tag">daily check-in</span>
+        </div>
+        <pre><code>curl -s http://127.0.0.1:8000/mood/happy \
+  -H "Authorization: Bearer $TOKEN"</code></pre>
+        <button class="copy-btn">📋 Copy</button>
+        <p class="warn"><code>item</code> is one of <code>happy</code>, <code>angry</code>,
+            <code>insightful</code>.</p>
+    </div>
+
+    <div class="card">
+        <div class="card-head">
+            <span class="method">GET</span>
+            <code>/emoji/</code>
+            <span class="tag">prize draw</span>
+        </div>
+        <pre><code>curl -s http://127.0.0.1:8000/emoji/ \
+  -H "Authorization: Bearer $TOKEN"</code></pre>
+        <button class="copy-btn">📋 Copy</button>
+    </div>
+
+    <div class="card">
+        <div class="card-head">
+            <span class="method">GET</span>
+            <code>/emoji/{item}</code>
+            <span class="tag">cap by index</span>
+        </div>
+        <pre><code>curl -s http://127.0.0.1:8000/emoji/0 \
+  -H "Authorization: Bearer $TOKEN"</code></pre>
+        <button class="copy-btn">📋 Copy</button>
+    </div>
+
+    <div class="card">
+        <div class="card-head">
+            <span class="method">GET</span>
+            <code>/users/me</code>
+            <span class="tag">who am i</span>
+        </div>
+        <pre><code>curl -s http://127.0.0.1:8000/users/me \
+  -H "Authorization: Bearer $TOKEN"</code></pre>
+        <button class="copy-btn">📋 Copy</button>
+    </div>
+
+    <div class="card">
+        <div class="card-head">
+            <span class="method">GET</span>
+            <code>/users/{id}</code>
+            <span class="tag">user by id</span>
+        </div>
+        <pre><code>curl -s http://127.0.0.1:8000/users/652a1f1e1f1e1f1e1f1e1f1e \
+  -H "Authorization: Bearer $TOKEN"</code></pre>
+        <button class="copy-btn">📋 Copy</button>
+    </div>
+
+    <div class="card">
+        <div class="card-head">
+            <span class="method">POST</span>
+            <code>/users/</code>
+            <span class="tag">new member</span>
+        </div>
+        <pre><code>curl -s -X POST http://127.0.0.1:8000/users/ \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Homer Simpson",
+    "email": "homer@duff.com",
+    "birthdate": "1990-01-01",
+    "password": "Test1234!"
+  }'</code></pre>
+        <button class="copy-btn">📋 Copy</button>
+    </div>
+</main>
+
+<footer>
     <a id="github" href="https://github.com/avcaliani">🐙</a>
-</div>
-</body>
+</footer>
 
 <script type="application/javascript">
-    const span = document.getElementById('clock');
+    const clock = document.getElementById('clock');
     setInterval(
-        () => span.textContent = new Date().toLocaleString().replace(",", " -"),
+        () => clock.textContent = new Date().toLocaleString().replace(",", " -"),
         1000
     );
+
+    document.querySelectorAll('.copy-btn').forEach((btn) => {
+        const original = btn.textContent;
+        btn.addEventListener('click', async () => {
+            const code = btn.previousElementSibling.textContent;
+            await navigator.clipboard.writeText(code);
+            btn.textContent = '✅ Copied!';
+            setTimeout(() => btn.textContent = original, 1500);
+        });
+    });
 </script>
+</body>
+
 </html>

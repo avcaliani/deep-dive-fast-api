@@ -1,6 +1,6 @@
 [project]
 name = "duff-api"
-version = "1.1.0"
+version = "2.0.0"
 description = "Duff API"
 readme = "README.md"
 authors = [{ name = "Anthony Caliani", email = "avcaliani.it@gmail.com" }]

@@ -21,7 +21,7 @@ app = FastAPI(
     title="Duff API",
     description="Duff Rewards Club - a members app for Duff drinkers. Auth is your membership "
     "card, /mood is your daily check-in, /emoji is the 'look under the cap' prize draw. 🍺",
-    version="1.1.0",
+    version="2.0.0",
     contact={
         "name": "Anthony Caliani",
         "url": "https://github.com/avcaliani",
