@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends
-from fastapi.responses import FileResponse, HTMLResponse
+from fastapi.responses import HTMLResponse
 from fastapi.security import OAuth2PasswordRequestForm
 
 from app.services import user as service
@@ -12,11 +12,6 @@ router = APIRouter()
 async def root():
     with open("static/index.html", encoding="utf8") as file:
         return HTMLResponse(content=file.read().rstrip(), status_code=200)
-
-
-@router.get("/favicon.ico", include_in_schema=False)
-async def favicon():
-    return FileResponse("static/favicon.ico")
 
 
 @router.post("/auth")

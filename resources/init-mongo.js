@@ -8,7 +8,7 @@
 
 /* API User at MongoDB */
 db.createUser({
-    user: "fast-app-api",
+    user: "duff-api",
     pwd: "123456",
-    roles: [{role: "readWrite", db: "fastAppDB"}]
+    roles: [{role: "readWrite", db: "duffDB"}]
 });

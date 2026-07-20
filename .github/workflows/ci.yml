@@ -1,4 +1,4 @@
-name: fast-app-api CI
+name: duff-api CI
 
 # Trigger: Push and Pull targeting Main Branch
 on:

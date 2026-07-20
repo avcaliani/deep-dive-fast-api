@@ -43,7 +43,7 @@ router = APIRouter(prefix="/emoji", tags=["emoji"])
 
 @router.get("/")
 async def emojis():
-    return {"lucky_emojis": ["🍏", "🍊"]}
+    return {"lucky_caps": ["🍩", "🍺"]}
 ```
 
 ```python
@@ -88,7 +88,7 @@ class User(BaseModel):
     model_config = ConfigDict(populate_by_name=True)  # replaces v1's `class Config`
 
 
-User(name="Anthony", email="not-an-email", birthdate="1990-01-01")
+User(name="Homer", email="not-an-email", birthdate="1990-01-01")
 # ValidationError: value is not a valid email address
 ```
 

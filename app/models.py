@@ -1,4 +1,4 @@
-from datetime import date, datetime
+from datetime import date, datetime, timezone
 from enum import Enum
 from typing import Annotated, Any, Optional
 
@@ -29,8 +29,10 @@ class User(BaseModel):
     mood: Optional[Mood] = None
     enabled: bool = True
     password: str
-    updated_at: Optional[datetime] = Field(datetime.utcnow(), alias="updatedAt")
-    created_at: Optional[datetime] = Field(datetime.utcnow(), alias="createdAt")
+    # Duff Rewards Club points. Scaffolding for a future feature - nothing awards points yet.
+    points: int = 0
+    updated_at: Optional[datetime] = Field(default_factory=lambda: datetime.now(timezone.utc), alias="updatedAt")
+    created_at: Optional[datetime] = Field(default_factory=lambda: datetime.now(timezone.utc), alias="createdAt")
 
     # More info at https://docs.pydantic.dev/latest/api/config/
     model_config = ConfigDict(
@@ -39,12 +41,13 @@ class User(BaseModel):
         json_schema_extra={
             "example": {
                 "id": "591528c0-3029-4f8c-9aa8-fee16e271dbd",
-                "name": "Anthony",
-                "email": "anthony@github.com",
+                "name": "Homer Simpson",
+                "email": "homer@duff.com",
                 "birthdate": date.today(),
                 "mood": Mood.happy,
                 "enabled": True,
-                "updated_at": datetime.utcnow(),
+                "points": 0,
+                "updated_at": datetime.now(timezone.utc),
             }
         },
     )

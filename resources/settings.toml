@@ -1,9 +1,9 @@
 [default]
 TOKEN_ALGORITHM = 'HS256'
 TOKEN_EXPIRE_MINUTES = 60
-MONGODB_DATABASE = "fastAppDB"
-MONGODB_CONFIG = { "user" = "fast-app-api", "password" = "123456", "host" = "127.0.0.1", "port" = "27017" }
-EMOJIS = ['🍏', '🍎', '🍐', '🍊', '🍋', '🍌', '🍉', '🍇', '🍓', '🫐', '🍈', '🍒', '🍑', '🥭', '🍍', '🥥', '🥝', '🍅']
+MONGODB_DATABASE = "duffDB"
+MONGODB_CONFIG = { "user" = "duff-api", "password" = "123456", "host" = "127.0.0.1", "port" = "27017" }
+EMOJIS = ['🍩', '🍺', '🍫', '🧁', '🍪', '🥨', '🍰', '🥯', '🍮', '🍭', '🍬', '🍯', '🥧', '🍦', '🥓']
 
 [prod]
-EMOJIS = ['⚽️', '🏀', '🏈', '⚾️', '🎾', '🏐', '🎱']
+EMOJIS = ['📺', '🛋️', '🍟', '🚔', '⛪', '🏭', '🎳']
