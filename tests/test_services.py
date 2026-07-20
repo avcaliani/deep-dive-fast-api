@@ -7,7 +7,7 @@ FAKE_RECORD = {
     "name": "Homer Simpson",
     "email": "homer@duff.com",
     "birthdate": "1990-01-01",
-    "password": "hashed-secret",
+    "password": "hashed-secret",  # pragma: allowlist secret
 }
 
 
@@ -30,4 +30,4 @@ async def test_find_includes_password_when_requested(monkeypatch):
 
     user = await service.find(email="homer@duff.com", include_password=True)
 
-    assert user["password"] == "hashed-secret"
+    assert user["password"] == "hashed-secret"  # pragma: allowlist secret

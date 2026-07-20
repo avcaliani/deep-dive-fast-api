@@ -31,8 +31,12 @@ class User(BaseModel):
     password: str
     # Duff Rewards Club points. Scaffolding for a future feature - nothing awards points yet.
     points: int = 0
-    updated_at: Optional[datetime] = Field(default_factory=lambda: datetime.now(timezone.utc), alias="updatedAt")
-    created_at: Optional[datetime] = Field(default_factory=lambda: datetime.now(timezone.utc), alias="createdAt")
+    updated_at: Optional[datetime] = Field(
+        default_factory=lambda: datetime.now(timezone.utc), alias="updatedAt"
+    )
+    created_at: Optional[datetime] = Field(
+        default_factory=lambda: datetime.now(timezone.utc), alias="createdAt"
+    )
 
     # More info at https://docs.pydantic.dev/latest/api/config/
     model_config = ConfigDict(

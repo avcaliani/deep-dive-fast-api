@@ -28,7 +28,7 @@ repos:
     hooks:
       - id: check-datetime-now
         name: check_datetime_now
-        description: Prefer datetime.utcnow()
+        description: Prefer timezone-aware datetime.now(timezone.utc)
         language: pygrep
         entry: 'datetime\.now\(\)'
         types: [ python ]

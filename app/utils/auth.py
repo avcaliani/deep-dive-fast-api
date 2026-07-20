@@ -28,7 +28,11 @@ def check_password(plain: str, hashed: str) -> bool:
 
 
 def create_token(subject: str, mood: str):
-    data = {"sub": subject, "mood": mood, "exp": datetime.now(timezone.utc) + timedelta(minutes=EXPIRE_MINUTES)}
+    data = {
+        "sub": subject,
+        "mood": mood,
+        "exp": datetime.now(timezone.utc) + timedelta(minutes=EXPIRE_MINUTES),
+    }
     return {"token": jwt.encode(data, SECRET_KEY, algorithm=ALGORITHM), "token_type": "bearer"}
 
 

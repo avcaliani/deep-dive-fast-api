@@ -4,7 +4,12 @@ from app.models import User
 
 
 def _make_user() -> User:
-    return User(name="Homer", email="homer@duff.com", birthdate="1990-01-01", password="secret")
+    return User(
+        name="Homer",
+        email="homer@duff.com",
+        birthdate="1990-01-01",
+        password="secret",  # pragma: allowlist secret
+    )
 
 
 def test_user_default_timestamps_are_generated_per_instance():
