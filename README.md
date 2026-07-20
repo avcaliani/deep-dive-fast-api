@@ -1,8 +1,6 @@
 <div align="center">
 
-<img src="static/favicon.svg" width="160px" alt="Duff API mascot bear"/>
-
-# `Duff API`
+# Duff API
 
 ![License](https://img.shields.io/github/license/avcaliani/deep-dive-fast-api?logo=opensourceinitiative&logoColor=white&color=lightseagreen)
 ![Python](https://img.shields.io/badge/python-3.10.x-3776AB?logo=python&logoColor=white)
@@ -14,18 +12,16 @@
 My goal with this repository is an in-depth exploration of FastAPI internals, the async
 execution model, and production-ready backend design.
 
-**Duff Rewards Club** — a members app for Duff drinkers.  
-Auth is your membership card, `/mood`
-is your daily check-in, `/emoji` is the "look under the cap" prize draw.
+**Duff Rewards Club**,  a members app for Duff drinkers.  
+Auth is your membership card, `/mood` is your daily check-in, `/emoji` is the "look under the cap" prize draw.
 
 </div>
 
-## Endpoints
-
-> 💡 To see every endpoint, start the API and check `http://127.0.0.1:8000` — the homepage lists
-> them all with copy-paste curl commands.
-
 ![home](.docs/home.png)
+
+> [!NOTE]
+> To see every endpoint, start the API and check `http://127.0.0.1:8000`  
+> The homepage lists them all with copy-paste curl commands.
 
 ## Folder Structure
 
