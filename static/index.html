@@ -228,7 +228,9 @@
     <div id="glow"></div>
     <img id="mascot" src="/static/favicon.svg" alt="Duff API mascot bear"/>
     <h1>Duff Rewards Club</h1>
-    <p class="tagline">A members app for Duff drinkers. Auth is your membership card, <code>/mood</code>
+    <p class="tagline">
+        A members app for Duff drinkers. <br/>
+        Auth is your membership card, <code>/mood</code>
         is your daily check-in, <code>/emoji</code> is the "look under the cap" prize draw. 🍻</p>
     <nav>
         <a href="/docs">Swagger</a>
@@ -261,11 +263,8 @@
   --data-urlencode "username=bart@duff.com" \
   --data-urlencode "password=Test1234!"</code></pre>
         <button class="copy-btn">📋 Copy</button>
-        <p class="warn">⚠️ Known bug: login always returns 401. <code>app/services/user.py</code>'s
-            <code>find()</code> strips the password field before returning it, but
-            <code>app/routers/base.py</code>'s <code>get_token()</code> relies on that same
-            <code>find()</code> to check it — so the hash is always <code>None</code> and
-            <code>check_password()</code> always fails, regardless of credentials.</p>
+        <p class="warn">Needs a matching user already in MongoDB with a bcrypt password hash — insert
+            one directly if you haven't yet.</p>
     </div>
 
     <p class="lead">Everything below needs a membership card — set <code>$TOKEN</code> from the

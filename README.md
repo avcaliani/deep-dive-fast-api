@@ -14,7 +14,8 @@
 My goal with this repository is an in-depth exploration of FastAPI internals, the async
 execution model, and production-ready backend design.
 
-**Duff Rewards Club** — a members app for Duff drinkers. Auth is your membership card, `/mood`
+**Duff Rewards Club** — a members app for Duff drinkers.  
+Auth is your membership card, `/mood`
 is your daily check-in, `/emoji` is the "look under the cap" prize draw.
 
 </div>
@@ -103,14 +104,10 @@ curl -s http://127.0.0.1:8000/
 </details>
 
 - API Home: `http://127.0.0.1:8000`
-- Swagger: `http://127.0.0.1:8000/docs`
-- ReDoc: `http://127.0.0.1:8000/redoc`
 
 ![home](.docs/home.png)
 
-## Docker
-
-Build and run the API itself in a container (still requires `resources/.secrets.toml` and MongoDB running as above).
+Or build and run the API itself in a container (still requires `resources/.secrets.toml` and MongoDB running as above).
 
 <details>
 <summary>Show docker commands 👇</summary>
@@ -130,4 +127,4 @@ docker run -p 8000:8000 --env APP_ENV=dev duff-api
 - [pre-commit: docs](https://pre-commit.com/) — hooks run in CI, see `.pre-commit-config.yaml`
 - [MongoDB: Quick Start FastAPI](https://www.mongodb.com/developer/quickstart/python-quickstart-fastapi/) — the ObjectId pattern in `app/models.py` follows this guide
 
-> 💡 Copy-pasteable curls for the public endpoints above are on the running homepage itself (`http://127.0.0.1:8000`) — see the "Try It Out" section.
+> 💡 Copy-pasteable curls for every endpoint above are on the running homepage itself (`http://127.0.0.1:8000`) — see the "Try It Out" section.
