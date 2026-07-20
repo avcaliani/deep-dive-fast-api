@@ -97,8 +97,6 @@ curl -s http://127.0.0.1:8000/
 
 </details>
 
-- API Home: `http://127.0.0.1:8000`
-
 Or build and run the API itself in a container (still requires `resources/.secrets.toml` and MongoDB running as above).
 
 <details>
