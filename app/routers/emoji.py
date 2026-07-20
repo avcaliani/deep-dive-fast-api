@@ -25,4 +25,9 @@ async def emojis(limit: Optional[int] = None):
 
 @router.get("/{item}")
 async def get_emoji(item: int):
-    return {"emoji": EMOJIS[item], "item": item, "item_type": type(item), "consulted_at": datetime.now(timezone.utc)}
+    return {
+        "emoji": EMOJIS[item],
+        "item": item,
+        "item_type": type(item),
+        "consulted_at": datetime.now(timezone.utc),
+    }
