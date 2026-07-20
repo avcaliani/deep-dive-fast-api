@@ -5,9 +5,9 @@
 # `Duff API`
 
 ![License](https://img.shields.io/github/license/avcaliani/deep-dive-fast-api?logo=opensourceinitiative&logoColor=white&color=lightseagreen)
-![Python](https://img.shields.io/badge/python-3.10.x-yellow.svg?logo=python&logoColor=white)
+![Python](https://img.shields.io/badge/python-3.10.x-3776AB?logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white)
-![Code Style](https://img.shields.io/badge/code%20style-black-000000.svg)
+![MongoDB](https://img.shields.io/badge/MongoDB-47A248?logo=mongodb&logoColor=white)
 ![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)
 ![Latest Tag](https://img.shields.io/github/v/tag/avcaliani/deep-dive-fast-api?logo=github&logoColor=white&color=blueviolet)
 
@@ -24,34 +24,13 @@ is your daily check-in, `/emoji` is the "look under the cap" prize draw.
 ```text
 GET  /                  API home page (HTML)
 POST /auth              login -> JWT bearer token
-GET  /emoji/            random lucky emojis (auth required)
+GET  /emoji/            random lucky caps (auth required)
 GET  /emoji/{item}      emoji by index (auth required)
 GET  /mood/{item}       mood message by Mood enum (auth required)
 GET  /users/me          current authenticated user (auth required)
 GET  /users/{id}        user by id (auth required)
 POST /users/            create user (auth required)
 ```
-
-## User Shape
-
-```json
-{
-  "id": "591528c0-3029-4f8c-9aa8-fee16e271dbd",
-  "name": "Homer Simpson",
-  "email": "homer@duff.com",
-  "birthdate": "1990-01-01",
-  "mood": "😁",
-  "enabled": true,
-  "points": 0,
-  "updated_at": "2026-07-19T12:00:00.000000"
-}
-```
-
-## MongoDB
-
-- Database: `duffDB`, collection: `users`
-- `_id` is a Mongo ObjectId-format string, not a real BSON ObjectId
-- `resources/init-mongo.js` creates the API's DB user on the container's first start
 
 ## Folder Structure
 
