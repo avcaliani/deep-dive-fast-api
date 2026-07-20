@@ -22,16 +22,10 @@ is your daily check-in, `/emoji` is the "look under the cap" prize draw.
 
 ## Endpoints
 
-```text
-GET  /                  API home page (HTML)
-POST /auth              login -> JWT bearer token
-GET  /emoji/            random lucky caps (auth required)
-GET  /emoji/{item}      emoji by index (auth required)
-GET  /mood/{item}       mood message by Mood enum (auth required)
-GET  /users/me          current authenticated user (auth required)
-GET  /users/{id}        user by id (auth required)
-POST /users/            create user (auth required)
-```
+> 💡 To see every endpoint, start the API and check `http://127.0.0.1:8000` — the homepage lists
+> them all with copy-paste curl commands.
+
+![home](.docs/home.png)
 
 ## Folder Structure
 
@@ -105,8 +99,6 @@ curl -s http://127.0.0.1:8000/
 
 - API Home: `http://127.0.0.1:8000`
 
-![home](.docs/home.png)
-
 Or build and run the API itself in a container (still requires `resources/.secrets.toml` and MongoDB running as above).
 
 <details>
@@ -126,5 +118,3 @@ docker run -p 8000:8000 --env APP_ENV=dev duff-api
 - [uv: docs](https://docs.astral.sh/uv/) — dependency management
 - [pre-commit: docs](https://pre-commit.com/) — hooks run in CI, see `.pre-commit-config.yaml`
 - [MongoDB: Quick Start FastAPI](https://www.mongodb.com/developer/quickstart/python-quickstart-fastapi/) — the ObjectId pattern in `app/models.py` follows this guide
-
-> 💡 Copy-pasteable curls for every endpoint above are on the running homepage itself (`http://127.0.0.1:8000`) — see the "Try It Out" section.
