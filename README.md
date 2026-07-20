@@ -1,9 +1,11 @@
 <div align="center">
 
-# 🍻 Duff API
+<img src="static/favicon.svg" width="160px" alt="Duff API mascot bear"/>
 
-![License](https://img.shields.io/github/license/avcaliani/fast-app?logo=apache&color=lightseagreen)
-![#](https://img.shields.io/badge/python-3.10.x-yellow.svg)
+# `Duff API`
+
+![License](https://img.shields.io/github/license/avcaliani/deep-dive-fast-api?logo=opensourceinitiative&logoColor=white&color=lightseagreen)
+![Python](https://img.shields.io/badge/python-3.10.x-yellow.svg?logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white)
 ![Code Style](https://img.shields.io/badge/code%20style-black-000000.svg)
 ![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)
@@ -148,6 +150,5 @@ docker run -p 8000:8000 --env APP_ENV=dev duff-api
 - [uv: docs](https://docs.astral.sh/uv/) — dependency management
 - [pre-commit: docs](https://pre-commit.com/) — hooks run in CI, see `.pre-commit-config.yaml`
 - [MongoDB: Quick Start FastAPI](https://www.mongodb.com/developer/quickstart/python-quickstart-fastapi/) — the ObjectId pattern in `app/models.py` follows this guide
-- [Icon made by Strokeicon from IconFinder](https://www.iconfinder.com/icons/2191531/best_fast_flash_good_light_speed_icon)
 
-> 💡 See [`.docs/curl-requests.md`](.docs/curl-requests.md) for copy-pasteable curls to try the public endpoints above.
+> 💡 Copy-pasteable curls for the public endpoints above are on the running homepage itself (`http://127.0.0.1:8000`) — see the "Try It Out" section.
