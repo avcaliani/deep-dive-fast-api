@@ -18,8 +18,9 @@ from app.routers import base, emoji, mood, user
 # MORE INFO
 # Metadata: https://fastapi.tiangolo.com/tutorial/metadata/
 app = FastAPI(
-    title="Fast App",
-    description="Fast App it is my first FastAPI app 🚀",
+    title="Duff API",
+    description="Duff Rewards Club - a members app for Duff drinkers. Auth is your membership "
+    "card, /mood is your daily check-in, /emoji is the 'look under the cap' prize draw. 🍺",
     version="1.1.0",
     contact={
         "name": "Anthony Caliani",
@@ -31,11 +32,6 @@ app = FastAPI(
         "url": "https://opensource.org/licenses/MIT",
     },
 )
-
-# TODO List
-#   - Database (SQL or NoSQL)
-#   - Unit Tests
-#   - Logging
 
 # 👇 Static Files
 app.mount("/static", StaticFiles(directory="static"), name="static")

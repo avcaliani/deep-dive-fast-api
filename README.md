@@ -1,8 +1,6 @@
 <div align="center">
 
-<img src=".docs/logo.png" width="64px"/>
-
-# Fast App - API
+# 🍻 Duff API
 
 ![License](https://img.shields.io/github/license/avcaliani/fast-app?logo=apache&color=lightseagreen)
 ![#](https://img.shields.io/badge/python-3.10.x-yellow.svg)
@@ -13,6 +11,9 @@
 
 My goal with this repository is an in-depth exploration of FastAPI internals, the async
 execution model, and production-ready backend design.
+
+**Duff Rewards Club** — a members app for Duff drinkers. Auth is your membership card, `/mood`
+is your daily check-in, `/emoji` is the "look under the cap" prize draw.
 
 </div>
 
@@ -34,18 +35,19 @@ POST /users/            create user (auth required)
 ```json
 {
   "id": "591528c0-3029-4f8c-9aa8-fee16e271dbd",
-  "name": "Anthony",
-  "email": "anthony@github.com",
+  "name": "Homer Simpson",
+  "email": "homer@duff.com",
   "birthdate": "1990-01-01",
   "mood": "😁",
   "enabled": true,
+  "points": 0,
   "updated_at": "2026-07-19T12:00:00.000000"
 }
 ```
 
 ## MongoDB
 
-- Database: `fastAppDB`, collection: `users`
+- Database: `duffDB`, collection: `users`
 - `_id` is a Mongo ObjectId-format string, not a real BSON ObjectId
 - `resources/init-mongo.js` creates the API's DB user on the container's first start
 
@@ -89,7 +91,7 @@ make install
 echo "
 [default]
 TOKEN_SECRET_KEY = '$(openssl rand -hex 32)'
-SECRET = '🚀'  # Dev Secret
+SECRET = '🍺'  # Dev Secret
 
 [prod]
 SECRET = '🤫'
@@ -133,8 +135,8 @@ Build and run the API itself in a container (still requires `resources/.secrets.
 <summary>Show docker commands 👇</summary>
 
 ```bash
-docker build -t fast-app-api .
-docker run -p 8000:8000 --env APP_ENV=dev fast-app-api
+docker build -t duff-api .
+docker run -p 8000:8000 --env APP_ENV=dev duff-api
 ```
 
 </details>
