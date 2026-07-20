@@ -93,9 +93,15 @@ User(name="Homer", email="not-an-email", birthdate="1990-01-01")
 ```
 
 ⚠️ This repo reuses one `User` model for request body, DB round-trip, and response — a known anti-pattern.  
-Split into `UserCreate` / `UserPublic` / `UserInDB` to stop internal fields (password hash) leaking into responses.
+It's not just theoretical: it caused a real bug. `app/services/user.py`'s `find()` strips
+`password` before returning, since the same dict is used for `GET /users/{id}` responses. But
+`POST /auth` called that same `find()` to check the password hash — so the hash was always
+`None` and login always failed, no matter the credentials. The fix adds an `include_password`
+opt-in (default `False`) so `find()` can serve both callers safely, but the real fix is to stop
+sharing one model: split into `UserCreate` / `UserPublic` / `UserInDB` so "does this leak a
+password hash" isn't a runtime flag you have to remember to set correctly at every call site.
 
-See: `app/models.py`
+See: `app/models.py`, `app/services/user.py`, `tests/test_services.py`
 
 ## Middleware
 
