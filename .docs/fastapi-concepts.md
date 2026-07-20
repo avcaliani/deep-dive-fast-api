@@ -58,7 +58,7 @@ See: `app/routers/`, `main.py:54`
 
 ## Query Params
 
-Extra values in the URL (`?limit=5`), not the path itself. 
+Extra values in the URL (`?limit=5`), not the path itself.  
 FastAPI infers them from the function signature — no manual `request.query_params.get(...)`.
 
 ```python
