@@ -1,6 +1,6 @@
 <div align="center">
 
-# Dunder Mifflin Rewards API
+# Rewards API
 
 ![License](https://img.shields.io/github/license/avcaliani/deep-dive-fast-api?logo=opensourceinitiative&logoColor=white&color=lightseagreen)
 ![Python](https://img.shields.io/badge/python-3.10.x-3776AB?logo=python&logoColor=white)
@@ -9,17 +9,11 @@
 ![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)
 ![Latest Tag](https://img.shields.io/github/v/tag/avcaliani/deep-dive-fast-api?logo=github&logoColor=white&color=blueviolet)
 
-My goal with this repository is an in-depth exploration of FastAPI internals, the async
-execution model, and production-ready backend design.
+My goal with this repository is an in-depth exploration of FastAPI internals, the async execution model, and production-ready backend design.
 
-**Schrute Bucks Rewards**, an employee rewards app inspired on "The Office" 📎  
-Auth is your employee badge, `/mood` is your daily morale check-in (earns Schrute Bucks), `/vending` is where you spend them.
+**Schrute Bucks Rewards**, an employee rewards app inspired on "The Office" 📎 
 
 </div>
-
-> Why The Office? Dwight's fake productivity currency needed a real backend. Turning "Schrute Bucks"
-> into an actual points economy gave this teaching lab a use case worth earning and spending against,
-> instead of a `points` field nothing ever touched.
 
 ```mermaid
 %%{ init: { 'look': 'handDrawn', 'theme': 'neutral' } }%%
@@ -33,82 +27,41 @@ flowchart LR
 ```
 
 > [!NOTE]
-> To see every endpoint, start the API and check `http://127.0.0.1:8000`  
-> The homepage lists them all with copy-paste curl commands.
-
-## Folder Structure
-
-```bash
-.
-├── app/
-│   ├── routers/         # 🚏 API route handlers.
-│   ├── services/        # ⚙️ Business logic.
-│   ├── utils/           # 🔧 Auth & MongoDB helpers.
-│   ├── config.py        # ⚙️ Dynaconf settings loader.
-│   └── models.py        # 📦 Pydantic models.
-├── resources/
-│   ├── init-mongo.js    # 🌱 Mongo init script (creates the API's DB user).
-│   ├── log-config.yml   # 📝 Uvicorn logging config.
-│   └── settings.toml    # 📝 Dynaconf settings.
-├── static/               # 🖼️ Static files served by the API.
-├── tests/                # ✅ Unit tests.
-├── main.py               # 🚀 FastAPI app entrypoint.
-├── Dockerfile            # 🐋 Dockerfile for the API.
-└── docker-compose.yml    # 🧩 MongoDB service for local dev.
-```
+> Start the API and check `http://127.0.0.1:8000  
+> The homepage has an interactive playground to run every endpoint live, 
+> plus copy-paste curl commands for each one.
 
 ## Getting Started
 
-One-time setup: Python env, dependencies, and a Dynaconf secrets file.
-
-<details>
-<summary>Show setup commands 👇</summary>
-
 ```bash
-# 👇 Virtual Environment
-pyenv local 3.10.0
-python -m venv .venv && source .venv/bin/activate
-
-# 👇 Dependencies
+# One-time setup
 make install
-
-# 👇 Dynaconf secrets file
 echo "
 [default]
 TOKEN_SECRET_KEY = '$(openssl rand -hex 32)'
 " > resources/.secrets.toml
+
+# Start MongoDB, create the demo user, and run the API
+docker-compose up -d
+make create-user
+make run
 ```
 
-</details>
-
-Commands to run the API locally.
-
 <details>
-<summary>Show run commands 👇</summary>
+<summary>More commands: tests, formatting, Docker 👇</summary>
 
 ```bash
-# Start MongoDB
-docker-compose up -d
-
-# Seed the Dwight Schrute demo user (dwight@dundermifflin.com / Test1234!)
-make seed
-
-# Start the API
-make run
-
 # Run tests
 make test
 
-# Sanity Check
-curl -s http://127.0.0.1:8000/
+# Format & lint (same checks as CI)
+uvx pre-commit run --all-files
+
+# Update locked dependencies
+make update-deps
 ```
 
-</details>
-
-Or build and run the API itself in a container (still requires `resources/.secrets.toml` and MongoDB running as above).
-
-<details>
-<summary>Show docker commands 👇</summary>
+Or run the API itself in a container (still requires `resources/.secrets.toml` and MongoDB running as above).
 
 ```bash
 docker build -t dunder-mifflin-api .

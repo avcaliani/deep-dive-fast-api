@@ -8,9 +8,11 @@
 - `app/routers/` - API route handlers
 - `app/services/` - business logic
 - `app/utils/` - auth & MongoDB helpers
+- `app/dependencies.py` - auth dependency injection (Bearer token -> current user)
 - `app/config.py` - Dynaconf settings loader
 - `app/models.py` - Pydantic models
-- `static/` - static files served by the API
+- `static/` - static files served by the API, incl. the interactive playground on `/`
+- `scripts/` - one-off maintenance scripts (e.g. `create_user.py`)
 - `main.py` - FastAPI app entrypoint
 - `tests/` - unit tests
 - `resources/settings.toml` / `resources/.secrets.toml` - Dynaconf settings
@@ -25,6 +27,7 @@
 Requires `resources/.secrets.toml` (see README) and MongoDB running via `docker-compose up -d`.
 
 - install deps: `make install`
+- create the demo user (required before `/auth` will work): `make create-user`
 - run unit tests: `make test`
 - run: `make run`
 - update deps: `make update-deps`
