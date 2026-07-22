@@ -1,5 +1,4 @@
 import logging as log
-from uuid import uuid4
 
 from app.models import User
 from app.utils import auth, mongo
@@ -15,8 +14,13 @@ async def find(id_: str = None, email: str = None, include_password: bool = Fals
 
 
 async def create(user: User) -> dict:
-    user.id = str(uuid4())
     user.password = auth.hash_password(user.password)
     user = await mongo.create(COLLECTION, user)
     log.info(f"New Record! Collection: {COLLECTION} | Data: {user}")
     return User(**user).model_dump()
+
+
+async def add_points(email: str, delta: int) -> dict | None:
+    condition = {"email": email} if delta >= 0 else {"email": email, "points": {"$gte": -delta}}
+    user = await mongo.find_one_and_update(COLLECTION, condition, {"$inc": {"points": delta}})
+    return User(**user).model_dump() if user else None

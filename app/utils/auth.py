@@ -1,5 +1,4 @@
 from datetime import datetime, timedelta, timezone
-from typing import Optional
 
 from fastapi import HTTPException
 from jose import JWTError, jwt
@@ -36,7 +35,7 @@ def create_token(subject: str, mood: str):
     return {"token": jwt.encode(data, SECRET_KEY, algorithm=ALGORITHM), "token_type": "bearer"}
 
 
-def decode(token: str) -> Optional[dict]:
+def decode(token: str) -> dict | None:
     try:
         return jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
     except JWTError as ex:

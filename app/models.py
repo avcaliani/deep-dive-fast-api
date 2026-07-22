@@ -1,6 +1,6 @@
 from datetime import date, datetime, timezone
 from enum import Enum
-from typing import Annotated, Any, Optional
+from typing import Annotated, Any
 
 from bson import ObjectId
 from pydantic import BaseModel, BeforeValidator, ConfigDict, EmailStr, Field
@@ -26,17 +26,13 @@ class User(BaseModel):
     name: str
     email: EmailStr
     birthdate: date
-    mood: Optional[Mood] = None
+    mood: Mood | None = None
     enabled: bool = True
     password: str
-    # Duff Rewards Club points. Scaffolding for a future feature - nothing awards points yet.
+    # Schrute Bucks balance. Earned via /mood check-ins, spent at /vending.
     points: int = 0
-    updated_at: Optional[datetime] = Field(
-        default_factory=lambda: datetime.now(timezone.utc), alias="updatedAt"
-    )
-    created_at: Optional[datetime] = Field(
-        default_factory=lambda: datetime.now(timezone.utc), alias="createdAt"
-    )
+    updated_at: datetime | None = Field(default_factory=lambda: datetime.now(timezone.utc), alias="updatedAt")
+    created_at: datetime | None = Field(default_factory=lambda: datetime.now(timezone.utc), alias="createdAt")
 
     # More info at https://docs.pydantic.dev/latest/api/config/
     model_config = ConfigDict(
@@ -45,8 +41,8 @@ class User(BaseModel):
         json_schema_extra={
             "example": {
                 "id": "591528c0-3029-4f8c-9aa8-fee16e271dbd",
-                "name": "Homer Simpson",
-                "email": "homer@duff.com",
+                "name": "Dwight Schrute",
+                "email": "dwight@dundermifflin.com",
                 "birthdate": date.today(),
                 "mood": Mood.happy,
                 "enabled": True,
@@ -55,3 +51,9 @@ class User(BaseModel):
             }
         },
     )
+
+
+class VendingItem(BaseModel):
+    emoji: str
+    name: str
+    cost: int

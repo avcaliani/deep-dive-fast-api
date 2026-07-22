@@ -1,7 +1,7 @@
 [project]
-name = "duff-api"
-version = "2.0.0"
-description = "Duff API"
+name = "dunder-mifflin-api"
+version = "3.0.0"
+description = "Dunder Mifflin Rewards API"
 readme = "README.md"
 authors = [{ name = "Anthony Caliani", email = "avcaliani.it@gmail.com" }]
 license = "MIT"
@@ -22,25 +22,23 @@ dev = [
     "pytest>=9.1.1,<10.0.0",
     "pytest-cov>=7.1.0,<8.0.0",
     "httpx2>=2.7.0,<3.0.0",
+    "ruff==0.15.22",
 ]
 
 [tool.uv]
 package = false
 
-[tool.black]
+[tool.ruff]
 line-length = 110
-target-version = ["py310"]
+target-version = "py310"
+src = ["app", "tests"]
 
-[tool.isort]
-line_length = 110
-multi_line_output = 3
-include_trailing_comma = true
-known_first_party = []
-force_grid_wrap = 0
-use_parentheses = true
-known_local_folder = ["app", "tests"]
-sections = ["FUTURE", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
-default_section = "THIRDPARTY"
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+# E = pycodestyle
+# F = Pyflakes
+# I = isort
+# UP = pyupgrade
 
 [tool.pytest.ini_options]
 testpaths = "tests"

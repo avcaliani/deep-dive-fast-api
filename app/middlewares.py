@@ -1,5 +1,5 @@
+from collections.abc import Callable
 from datetime import datetime, timezone
-from typing import Callable
 
 from fastapi import Request
 from fastapi.responses import StreamingResponse

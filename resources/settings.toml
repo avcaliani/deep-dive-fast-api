@@ -1,9 +1,27 @@
 [default]
 TOKEN_ALGORITHM = 'HS256'
 TOKEN_EXPIRE_MINUTES = 60
-MONGODB_DATABASE = "duffDB"
-MONGODB_CONFIG = { "user" = "duff-api", "password" = "123456", "host" = "127.0.0.1", "port" = "27017" }
-EMOJIS = ['🍩', '🍺', '🍫', '🧁', '🍪', '🥨', '🍰', '🥯', '🍮', '🍭', '🍬', '🍯', '🥧', '🍦', '🥓']
+MONGODB_DATABASE = "dunderMifflinDB"
+MONGODB_CONFIG = { "user" = "dunder-mifflin-api", "password" = "123456", "host" = "127.0.0.1", "port" = "27017" }
+CHECKIN_POINTS = 5
+VENDING_ITEMS = [
+    { emoji = '🏆', name = "Dundie Award", cost = 50 },
+    { emoji = '☕', name = "World's Best Boss Mug", cost = 25 },
+    { emoji = '🐻', name = "Recyclops Costume Piece", cost = 30 },
+    { emoji = '📎', name = "Stapler in Jello", cost = 15 },
+    { emoji = '🧀', name = "Party Planning Committee Cheese", cost = 5 },
+    { emoji = '🥨', name = "Pretzel Day Pretzel", cost = 8 },
+    { emoji = '🥧', name = "Schrute Farms Beet", cost = 10 },
+    { emoji = '📠', name = "Fax From Future Dwight", cost = 20 },
+]
 
 [prod]
-EMOJIS = ['📺', '🛋️', '🍟', '🚔', '⛪', '🏭', '🎳']
+VENDING_ITEMS = [
+    { emoji = '📺', name = "Flat Screen from Warehouse", cost = 40 },
+    { emoji = '🛋️', name = "Kevin's Couch Corner Seat", cost = 15 },
+    { emoji = '🍟', name = "Chili's Baby Back Ribs", cost = 10 },
+    { emoji = '🚔', name = "Michael's Convertible (toy)", cost = 20 },
+    { emoji = '⛪', name = "Niagara Falls Ceremony Photo", cost = 25 },
+    { emoji = '🏭', name = "Scranton Branch Snow Globe", cost = 12 },
+    { emoji = '🎳', name = "Bowling Night Trophy", cost = 18 },
+]

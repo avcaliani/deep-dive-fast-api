@@ -1,4 +1,4 @@
-name: duff-api CI
+name: dunder-mifflin-api CI
 
 # Trigger: Push and Pull targeting Main Branch
 on:
