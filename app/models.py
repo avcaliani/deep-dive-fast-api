@@ -57,3 +57,8 @@ class VendingItem(BaseModel):
     emoji: str
     name: str
     cost: int
+
+
+class Login(BaseModel):
+    username: str
+    password: str

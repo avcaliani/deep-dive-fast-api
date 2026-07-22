@@ -9,6 +9,12 @@ from app.services import user as service
 
 # Dunder Mifflin: daily morale check-in, pays out in Schrute Bucks.
 CHECKIN_POINTS = settings.CHECKIN_POINTS
+MESSAGES = {
+    Mood.happy: "That's what she said!",
+    Mood.angry: "FALSE.",
+    Mood.insightful: "Sometimes I'll start a sentence and I don't even know where "
+    "it's going. I just hope I find it along the way.",
+}
 router = APIRouter(prefix="/mood", tags=["mood"], dependencies=[Depends(dependencies.get_user)])
 
 
@@ -18,14 +24,8 @@ async def mood(
     text_mode: str | None = Query(None, min_length=4, max_length=8, pattern=r"CAPS(LOCK)?"),
     user: dict = Depends(dependencies.get_user),
 ):
-    messages = {
-        Mood.happy: "That's what she said!",
-        Mood.angry: "FALSE.",
-        Mood.insightful: "Sometimes I'll start a sentence and I don't even know where "
-        "it's going. I just hope I find it along the way.",
-    }
-    msg = messages.get(item)
-    updated_user = await service.add_points(user["email"], CHECKIN_POINTS)
+    msg = MESSAGES.get(item)
+    updated_user = await service.earn_points(user["email"], CHECKIN_POINTS)
     return {
         "message": msg.upper() if text_mode in ["CAPS", "CAPSLOCK"] else msg,
         "item": item,

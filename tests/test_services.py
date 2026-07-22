@@ -36,7 +36,19 @@ async def test_find_includes_password_when_requested(monkeypatch):
 
 
 @pytest.mark.anyio
-async def test_add_points_earning_increases_balance(monkeypatch):
+async def test_find_returns_none_when_no_match(monkeypatch):
+    async def _fake_find_one_missing(collection, condition):
+        return None
+
+    monkeypatch.setattr(service.mongo, "find_one", _fake_find_one_missing)
+
+    user = await service.find(email="unknown@dundermifflin.com")
+
+    assert user is None
+
+
+@pytest.mark.anyio
+async def test_earn_points_increases_balance(monkeypatch):
     calls = {}
 
     async def _fake_find_one_and_update(collection, condition, update):
@@ -46,7 +58,7 @@ async def test_add_points_earning_increases_balance(monkeypatch):
 
     monkeypatch.setattr(service.mongo, "find_one_and_update", _fake_find_one_and_update)
 
-    user = await service.add_points("dwight@dundermifflin.com", 5)
+    user = await service.earn_points("dwight@dundermifflin.com", 5)
 
     assert user["points"] == 25
     assert calls["condition"] == {"email": "dwight@dundermifflin.com"}
@@ -54,26 +66,26 @@ async def test_add_points_earning_increases_balance(monkeypatch):
 
 
 @pytest.mark.anyio
-async def test_add_points_spending_decreases_balance(monkeypatch):
+async def test_spend_points_decreases_balance(monkeypatch):
     async def _fake_find_one_and_update(collection, condition, update):
         assert condition == {"email": "dwight@dundermifflin.com", "points": {"$gte": 15}}
         return {**FAKE_RECORD, "points": 5}
 
     monkeypatch.setattr(service.mongo, "find_one_and_update", _fake_find_one_and_update)
 
-    user = await service.add_points("dwight@dundermifflin.com", -15)
+    user = await service.spend_points("dwight@dundermifflin.com", 15)
 
     assert user["points"] == 5
 
 
 @pytest.mark.anyio
-async def test_add_points_insufficient_funds_returns_none(monkeypatch):
+async def test_spend_points_insufficient_funds_returns_none(monkeypatch):
     async def _fake_find_one_and_update(collection, condition, update):
         return None
 
     monkeypatch.setattr(service.mongo, "find_one_and_update", _fake_find_one_and_update)
 
-    user = await service.add_points("dwight@dundermifflin.com", -1000)
+    user = await service.spend_points("dwight@dundermifflin.com", 1000)
 
     assert user is None
 
