@@ -2,14 +2,10 @@
 
 # Project
 PROJECT_NAME = "dunder-mifflin-api"
-CURRENT_VERSION = $(shell git describe --tags `git rev-list --tags --max-count=1` | grep --perl-regexp '\d+' --only-matching)
-NEW_VERSION = $(shell expr $(CURRENT_VERSION) + 1 )
 
 info:
 	@echo "-----------< project >-----------"
 	@echo " name              $(PROJECT_NAME)"
-	@echo " current version   v$(CURRENT_VERSION)"
-	@echo " new version       v$(NEW_VERSION)"
 	@echo ""
 
 install:
@@ -30,8 +26,4 @@ run:
 	# to indicate which profile should be used.
 	APP_ENV=dev uv run uvicorn main:app --log-config "resources/log-config.yml" --reload
 
-deploy:
-	git tag "v$(NEW_VERSION)"
-	git push origin "v$(NEW_VERSION)"
-
-.PHONY: info install update-deps test create-user run deploy
+.PHONY: info install update-deps test create-user run

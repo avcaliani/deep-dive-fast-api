@@ -31,3 +31,12 @@ Requires `resources/.secrets.toml` (see README) and MongoDB running via `docker-
 - run unit tests: `make test`
 - run: `make run`
 - update deps: `make update-deps`
+
+## Releasing
+
+To cut a release, tag manually to match the `version` in `pyproject.toml` / `main.py`'s `FastAPI(version=...)`, then push the tag:
+
+```bash
+git tag vX.Y.Z
+git push origin vX.Y.Z
+```
