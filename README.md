@@ -11,7 +11,7 @@
 
 My goal with this repository is an in-depth exploration of FastAPI internals, the async execution model, and production-ready backend design.
 
-**Schrute Bucks Rewards**, an employee rewards app inspired on "The Office" 📎 
+**Schrute Bucks Rewards**, an employee rewards app inspired on "The Office" 📎
 
 </div>
 
@@ -27,8 +27,8 @@ flowchart LR
 ```
 
 > [!NOTE]
-> Start the API and check `http://127.0.0.1:8000  
-> The homepage has an interactive playground to run every endpoint live, 
+> Start the API and check `http://127.0.0.1:8000`  
+> The homepage has an interactive playground to run every endpoint live,
 > plus copy-paste curl commands for each one.
 
 ## Getting Started
