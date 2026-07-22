@@ -22,8 +22,8 @@ update-deps:
 test:
 	uv run pytest -sx
 
-seed:
-	PYTHONPATH=. uv run python scripts/seed_user.py
+create-user:
+	PYTHONPATH=. uv run python scripts/create_user.py
 
 run:
 	# APP_ENV is an environment variable used by Dynaconf
@@ -34,4 +34,4 @@ deploy:
 	git tag "v$(NEW_VERSION)"
 	git push origin "v$(NEW_VERSION)"
 
-.PHONY: info install update-deps test seed run deploy
+.PHONY: info install update-deps test create-user run deploy

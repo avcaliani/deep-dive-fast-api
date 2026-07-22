@@ -1,9 +1,8 @@
-"""Seed the Dwight Schrute demo user used throughout the README and the homepage's
-"Try It Live" widget. Requires MongoDB running (`docker-compose up -d`).
-
-    uv run python scripts/seed_user.py
-"""
-
+# Create the Dwight Schrute demo user used throughout the README and the homepage's
+# "Try It Live" widget.
+# Requires MongoDB running (`docker-compose up -d`).
+#
+# uv run python scripts/create_user.py
 import asyncio
 
 from app.utils import auth
@@ -14,7 +13,7 @@ EMAIL = "dwight@dundermifflin.com"
 PASSWORD = "Test1234!"  # pragma: allowlist secret
 
 
-async def seed() -> None:
+async def create_user() -> None:
     user = {
         "_id": str(ObjectId()),
         "name": "Dwight Schrute",
@@ -26,8 +25,8 @@ async def seed() -> None:
         "points": 30,
     }
     await mongo.db["users"].update_one({"email": EMAIL}, {"$setOnInsert": user}, upsert=True)
-    print(f"Seeded {EMAIL} / {PASSWORD}")
+    print(f"Created {EMAIL} / {PASSWORD}")
 
 
 if __name__ == "__main__":
-    asyncio.run(seed())
+    asyncio.run(create_user())
