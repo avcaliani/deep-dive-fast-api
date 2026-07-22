@@ -118,6 +118,27 @@
             margin-bottom: 0.2em;
         }
 
+        summary.section-toggle {
+            cursor: pointer;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: var(--gold-light);
+            margin-bottom: 0.2em;
+            list-style: none;
+        }
+
+        summary.section-toggle::-webkit-details-marker {
+            display: none;
+        }
+
+        summary.section-toggle::before {
+            content: "▸ ";
+        }
+
+        details[open] summary.section-toggle::before {
+            content: "▾ ";
+        }
+
         main > p.lead {
             opacity: 0.75;
             margin-top: 0;
@@ -201,6 +222,105 @@
             font-size: 0.95em;
         }
 
+        .live-card {
+            text-align: left;
+            background: var(--card-bg);
+            border: 1px solid var(--gold);
+            border-radius: 12px;
+            padding: 1.2em 1.2em 1.4em 1.2em;
+            margin: 1.2em 0 2em 0;
+        }
+
+        .live-step {
+            padding: 1em 0;
+            border-top: 1px solid var(--card-border);
+        }
+
+        .live-step:first-of-type {
+            border-top: none;
+            padding-top: 0.2em;
+        }
+
+        .live-step h3 {
+            margin: 0 0 0.6em 0;
+            font-size: 1em;
+            color: var(--gold-light);
+        }
+
+        .live-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5em;
+            align-items: center;
+        }
+
+        input[type="text"], input[type="password"] {
+            font-family: inherit;
+            font-size: 0.85em;
+            color: var(--cream);
+            background: var(--bg-darker);
+            border: 1px solid var(--card-border);
+            border-radius: 6px;
+            padding: 0.5em 0.7em;
+            flex: 1 1 12em;
+        }
+
+        input[type="text"]:focus, input[type="password"]:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .run-btn {
+            font-family: inherit;
+            font-weight: bold;
+            font-size: 0.85em;
+            color: var(--ink);
+            background: var(--gold);
+            border: none;
+            border-radius: 6px;
+            padding: 0.55em 1em;
+            cursor: pointer;
+        }
+
+        .run-btn:hover {
+            background: var(--gold-light);
+        }
+
+        .catalog-item {
+            font-family: inherit;
+            font-size: 0.85em;
+            color: var(--cream);
+            background: var(--bg-darker);
+            border: 1px solid var(--card-border);
+            border-radius: 6px;
+            padding: 0.5em 0.8em;
+            cursor: pointer;
+        }
+
+        .catalog-item:hover {
+            border-color: var(--gold);
+        }
+
+        .result {
+            margin-top: 0.8em;
+            background: var(--bg-darker);
+            border-left: 3px solid var(--card-border);
+            border-radius: 6px;
+            padding: 0.7em 0.9em;
+            font-family: "SF Mono", Consolas, Monaco, monospace;
+            font-size: 0.8em;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .result.ok {
+            border-left-color: #4CAF6D;
+        }
+
+        .result.error {
+            border-left-color: #C6524B;
+        }
+
         footer {
             padding: 3em 0 2.5em 0;
         }
@@ -240,8 +360,45 @@
 </header>
 
 <main>
+    <h2>🖥️ Try It Live</h2>
+    <p class="lead">Same flow as the diagram in the README — click through it for real.</p>
+
+    <div class="live-card">
+        <div class="live-step">
+            <h3>1. Login — <code>POST /auth</code></h3>
+            <div class="live-row">
+                <input type="text" id="live-email" value="dwight@dundermifflin.com"/>
+                <input type="password" id="live-password" value="Test1234!"/>
+                <button class="run-btn" onclick="login()">Login</button>
+            </div>
+            <div class="result" id="result-login"></div>
+        </div>
+
+        <div class="live-step">
+            <h3>2. Check In — <code>GET /mood/{item}</code></h3>
+            <div class="live-row">
+                <button class="run-btn" onclick="checkIn('😁')">😁 Happy</button>
+                <button class="run-btn" onclick="checkIn('😡')">😡 Angry</button>
+                <button class="run-btn" onclick="checkIn('🤔')">🤔 Insightful</button>
+            </div>
+            <div class="result" id="result-mood"></div>
+        </div>
+
+        <div class="live-step">
+            <h3>3. Browse &amp; Redeem — <code>GET /vending/</code>, <code>POST /vending/{item}</code></h3>
+            <div class="live-row">
+                <button class="run-btn" onclick="browseCatalog()">Browse Catalog</button>
+            </div>
+            <div class="live-row" id="catalog-items" style="margin-top: 0.8em;"></div>
+            <div class="result" id="result-vending"></div>
+        </div>
+    </div>
+
     <h2>Try It Out</h2>
     <p class="lead">Every API endpoint — copy, paste, run.</p>
+
+    <details>
+    <summary class="section-toggle">Show endpoints</summary>
 
     <div class="card">
         <div class="card-head">
@@ -260,11 +417,11 @@
             <span class="tag">login</span>
         </div>
         <pre><code>curl -s -X POST http://127.0.0.1:8000/auth \
-  --data-urlencode "username=dwight@dundermifflin.com" \
-  --data-urlencode "password=Test1234!"</code></pre>
+  -H "Content-Type: application/json" \
+  -d '{"username": "dwight@dundermifflin.com", "password": "Test1234!"}'</code></pre>
         <button class="copy-btn">📋 Copy</button>
-        <p class="warn">Needs a matching user already in MongoDB with a bcrypt password hash — insert
-            one directly if you haven't yet.</p>
+        <p class="warn">Needs a matching user already in MongoDB — run <code>make seed</code> to
+            create this exact demo user if you haven't yet.</p>
     </div>
 
     <p class="lead">Everything below needs an employee badge — set <code>$TOKEN</code> from the
@@ -357,6 +514,7 @@
   }'</code></pre>
         <button class="copy-btn">📋 Copy</button>
     </div>
+    </details>
 </main>
 
 <footer>
@@ -364,6 +522,57 @@
 </footer>
 
 <script type="application/javascript">
+    let token = null;
+
+    function authHeader() {
+        return token ? {"Authorization": `Bearer ${token}`} : {};
+    }
+
+    async function renderResult(elementId, response) {
+        const el = document.getElementById(elementId);
+        const body = await response.json();
+        el.className = `result ${response.ok ? "ok" : "error"}`;
+        el.textContent = `${response.status} ${response.statusText}\n${JSON.stringify(body, null, 2)}`;
+        return body;
+    }
+
+    async function login() {
+        const email = document.getElementById('live-email').value;
+        const password = document.getElementById('live-password').value;
+        const response = await fetch('/auth', {
+            method: 'POST',
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({username: email, password}),
+        });
+        const body = await renderResult('result-login', response);
+        token = response.ok ? body.token : null;
+    }
+
+    async function checkIn(mood) {
+        const response = await fetch(`/mood/${encodeURIComponent(mood)}`, {headers: authHeader()});
+        await renderResult('result-mood', response);
+    }
+
+    async function browseCatalog() {
+        const response = await fetch('/vending/', {headers: authHeader()});
+        const body = await renderResult('result-vending', response);
+        const container = document.getElementById('catalog-items');
+        container.innerHTML = '';
+        if (!response.ok) return;
+        body.items.forEach((item, index) => {
+            const btn = document.createElement('button');
+            btn.className = 'catalog-item';
+            btn.textContent = `${item.emoji} ${item.name} — ${item.cost}`;
+            btn.onclick = () => redeem(index);
+            container.appendChild(btn);
+        });
+    }
+
+    async function redeem(index) {
+        const response = await fetch(`/vending/${index}`, {method: 'POST', headers: authHeader()});
+        await renderResult('result-vending', response);
+    }
+
     const clock = document.getElementById('clock');
     setInterval(
         () => clock.textContent = new Date().toLocaleString().replace(",", " -"),

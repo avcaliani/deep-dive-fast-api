@@ -21,7 +21,16 @@ Auth is your employee badge, `/mood` is your daily morale check-in (earns Schrut
 > into an actual points economy gave this teaching lab a use case worth earning and spending against,
 > instead of a `points` field nothing ever touched.
 
-![home](.docs/home.png)
+```mermaid
+%%{ init: { 'look': 'handDrawn', 'theme': 'neutral' } }%%
+flowchart LR
+    A[👤 Employee] -->|"POST /auth"| B[🔑 JWT Token]
+    B -->|"GET /mood/😁"| C[💰 Earn Schrute Bucks]
+    C -->|"GET /vending/"| D[🗂️ Browse Catalog]
+    D -->|"POST /vending/0"| E{Enough Schrute Bucks?}
+    E -->|Yes| F[🏆 200 - Reward Redeemed]
+    E -->|No| G[🚫 402 - Not Enough Schrute Bucks]
+```
 
 > [!NOTE]
 > To see every endpoint, start the API and check `http://127.0.0.1:8000`  
@@ -80,6 +89,9 @@ Commands to run the API locally.
 ```bash
 # Start MongoDB
 docker-compose up -d
+
+# Seed the Dwight Schrute demo user (dwight@dundermifflin.com / Test1234!)
+make seed
 
 # Start the API
 make run

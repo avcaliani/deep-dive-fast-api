@@ -39,7 +39,7 @@ async def get_item(item: int):
 @router.post("/{item}")
 async def redeem(item: int, user: dict = Depends(dependencies.get_user)):
     vending_item = _get_item(item)
-    updated_user = await service.add_points(user["email"], -vending_item.cost)
+    updated_user = await service.spend_points(user["email"], vending_item.cost)
     if updated_user is None:
         raise HTTPException(status_code=402, detail="Not enough Schrute Bucks!")
     return {

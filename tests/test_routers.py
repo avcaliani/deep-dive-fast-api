@@ -1,5 +1,5 @@
 from app.models import Mood
-from app.routers import mood, vending
+from app.routers import base, mood, vending
 
 FAKE_USER = {
     "id": "652a1f1e1f1e1f1e1f1e1f1e",
@@ -16,13 +16,37 @@ def test_response_ok(api_client):
     assert response.status_code == 200
 
 
-def test_mood_checkin_awards_schrute_bucks(api_client, monkeypatch, auth_as):
-    async def _fake_add_points(email, delta):
-        assert email == FAKE_USER["email"]
-        assert delta == mood.CHECKIN_POINTS
-        return {**FAKE_USER, "points": FAKE_USER["points"] + delta}
+def test_auth_with_unknown_user_returns_401_not_500(api_client, monkeypatch):
+    async def _fake_find(id_=None, email=None, include_password=False):
+        return None
 
-    monkeypatch.setattr(mood.service, "add_points", _fake_add_points)
+    monkeypatch.setattr(base.service, "find", _fake_find)
+
+    response = api_client.post("/auth", json={"username": "unknown@dundermifflin.com", "password": "x"})
+
+    assert response.status_code == 401
+
+
+def test_auth_success_returns_token(api_client, monkeypatch):
+    async def _fake_find(id_=None, email=None, include_password=False):
+        return {**FAKE_USER, "password": "hashed-secret"}  # pragma: allowlist secret
+
+    monkeypatch.setattr(base.service, "find", _fake_find)
+    monkeypatch.setattr(base.auth, "check_password", lambda plain, hashed: True)
+
+    response = api_client.post("/auth", json={"username": FAKE_USER["email"], "password": "Test1234!"})
+
+    assert response.status_code == 200
+    assert "token" in response.json()
+
+
+def test_mood_checkin_awards_schrute_bucks(api_client, monkeypatch, auth_as):
+    async def _fake_earn_points(email, amount):
+        assert email == FAKE_USER["email"]
+        assert amount == mood.CHECKIN_POINTS
+        return {**FAKE_USER, "points": FAKE_USER["points"] + amount}
+
+    monkeypatch.setattr(mood.service, "earn_points", _fake_earn_points)
     auth_as(FAKE_USER)
 
     response = api_client.get(f"/mood/{Mood.happy.value}")
@@ -36,11 +60,11 @@ def test_mood_checkin_awards_schrute_bucks(api_client, monkeypatch, auth_as):
 def test_vending_redeem_success(api_client, monkeypatch, auth_as):
     item = vending.ITEMS[0]
 
-    async def _fake_add_points(email, delta):
-        assert delta == -item.cost
-        return {**FAKE_USER, "points": FAKE_USER["points"] + delta}
+    async def _fake_spend_points(email, cost):
+        assert cost == item.cost
+        return {**FAKE_USER, "points": FAKE_USER["points"] - cost}
 
-    monkeypatch.setattr(vending.service, "add_points", _fake_add_points)
+    monkeypatch.setattr(vending.service, "spend_points", _fake_spend_points)
     auth_as(FAKE_USER)
 
     response = api_client.post("/vending/0")
@@ -50,10 +74,10 @@ def test_vending_redeem_success(api_client, monkeypatch, auth_as):
 
 
 def test_vending_redeem_insufficient_funds(api_client, monkeypatch, auth_as):
-    async def _fake_add_points(email, delta):
+    async def _fake_spend_points(email, cost):
         return None
 
-    monkeypatch.setattr(vending.service, "add_points", _fake_add_points)
+    monkeypatch.setattr(vending.service, "spend_points", _fake_spend_points)
     auth_as(FAKE_USER)
 
     response = api_client.post("/vending/0")
