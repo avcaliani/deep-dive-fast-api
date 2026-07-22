@@ -9,14 +9,14 @@
     <title>Dunder Mifflin Rewards API</title>
     <style>
         :root {
-            --bg-dark: #241407;
-            --bg-darker: #170d04;
-            --amber: #E29A3C;
-            --amber-light: #F3C77A;
-            --cream: #FFF3D6;
-            --ink: #1A1A1A;
-            --card-bg: #33200F;
-            --card-border: #4A2E17;
+            --bg-dark: #171b26;
+            --bg-darker: #0d0f16;
+            --gold: #C68E22;
+            --gold-light: #F1CE6B;
+            --cream: #F3EDE0;
+            --ink: #14151a;
+            --card-bg: #1E2333;
+            --card-border: #333c56;
         }
 
         * {
@@ -33,7 +33,7 @@
 
         a {
             text-decoration: none;
-            color: var(--amber-light);
+            color: var(--gold-light);
         }
 
         a:hover {
@@ -53,7 +53,7 @@
             transform: translateX(-50%);
             width: 360px;
             height: 360px;
-            background: radial-gradient(circle, rgba(226, 154, 60, 0.35) 0%, rgba(226, 154, 60, 0) 70%);
+            background: radial-gradient(circle, rgba(198, 142, 34, 0.35) 0%, rgba(198, 142, 34, 0) 70%);
             pointer-events: none;
         }
 
@@ -67,7 +67,7 @@
             position: relative;
             margin: 0.4em 0 0 0;
             font-size: 2.2em;
-            color: var(--amber-light);
+            color: var(--gold-light);
         }
 
         .tagline {
@@ -94,15 +94,15 @@
         }
 
         nav a:hover {
-            border-color: var(--amber);
-            background: rgba(226, 154, 60, 0.1);
+            border-color: var(--gold);
+            background: rgba(198, 142, 34, 0.1);
         }
 
         #clock {
             display: block;
             position: relative;
             margin-top: 1.2em;
-            color: var(--amber-light);
+            color: var(--gold-light);
             font-size: small;
             opacity: 0.8;
         }
@@ -114,7 +114,7 @@
         }
 
         main h2 {
-            color: var(--amber-light);
+            color: var(--gold-light);
             margin-bottom: 0.2em;
         }
 
@@ -144,7 +144,7 @@
         .method {
             font-weight: bold;
             color: var(--ink);
-            background: var(--amber);
+            background: var(--gold);
             border-radius: 4px;
             padding: 0.15em 0.5em;
             font-size: 0.8em;
@@ -171,7 +171,7 @@
         pre code {
             font-family: "SF Mono", Consolas, Monaco, monospace;
             font-size: 0.82em;
-            color: var(--amber-light);
+            color: var(--gold-light);
             white-space: pre;
         }
 
@@ -179,7 +179,7 @@
             font-family: inherit;
             font-size: 0.85em;
             color: var(--cream);
-            background: rgba(226, 154, 60, 0.15);
+            background: rgba(198, 142, 34, 0.15);
             border: 1px solid var(--card-border);
             border-radius: 6px;
             padding: 0.4em 0.8em;
@@ -187,7 +187,7 @@
         }
 
         .copy-btn:hover {
-            border-color: var(--amber);
+            border-color: var(--gold);
         }
 
         .warn {
@@ -212,13 +212,13 @@
             width: 44px;
             height: 44px;
             border-radius: 50%;
-            background: rgba(255, 243, 214, 0.1);
+            background: rgba(243, 237, 224, 0.1);
             font-size: 1.4em;
             transition: background 0.15s ease;
         }
 
         #github:hover {
-            background: rgba(255, 243, 214, 0.2);
+            background: rgba(243, 237, 224, 0.2);
         }
     </style>
 </head>
@@ -226,7 +226,7 @@
 <body>
 <header>
     <div id="glow"></div>
-    <img id="mascot" src="/static/favicon.svg" alt="Dunder Mifflin Rewards mascot"/>
+    <img id="mascot" src="/static/favicon.svg" alt="Schrute Bucks Dundie-style award medal"/>
     <h1>Schrute Bucks Rewards</h1>
     <p class="tagline">
         Dunder Mifflin's employee rewards program. <br/>
