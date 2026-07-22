@@ -41,31 +41,19 @@ repos:
     hooks:
       - id: detect-secrets
         exclude: "uv.lock|.*.ipynb"
-  - repo: https://github.com/PyCQA/flake8
-    rev: 7.3.0
-    hooks:
-      - id: flake8
-        args: [ "--exclude=docs/*", "--ignore=E501,W503,E203" ]
-  - repo: https://github.com/PyCQA/isort
-    rev: 8.0.1
-    hooks:
-      - id: isort
   - repo: https://github.com/pre-commit/pygrep-hooks
     rev: v1.10.0
     hooks:
       - id: python-check-mock-methods
-  - repo: https://github.com/psf/black
-    rev: 26.5.1
-    hooks:
-      - id: black
   - repo: https://github.com/PyCQA/pydocstyle
     rev: 6.3.0
     hooks:
       - id: pydocstyle
         additional_dependencies: [ "toml" ]
         args: [ --add-ignore=D1, -e ]
-  - repo: https://github.com/asottile/pyupgrade
-    rev: v3.21.2
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.2
     hooks:
-      - id: pyupgrade
-        args: [ --py37-plus ]
+      - id: ruff-check
+        args: [ --fix ]
+      - id: ruff-format

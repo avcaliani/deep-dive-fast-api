@@ -1,6 +1,7 @@
 from fastapi.encoders import jsonable_encoder
 from motor.motor_asyncio import AsyncIOMotorClient
 from pydantic import BaseModel
+from pymongo import ReturnDocument
 
 from app.config import settings
 
@@ -47,6 +48,21 @@ class MongoFacade:
         new_record = await self.db[collection].insert_one(jsonable_encoder(data))
         new_record = await self.find_one(collection, {"id_": new_record.inserted_id})
         return new_record
+
+    async def find_one_and_update(self, collection: str, condition: dict, update: dict) -> dict | None:
+        """Atomically update and return the matching `collection` record.
+
+        Args:
+            collection (str): MongoDB collection name.
+            condition (dict): Search condition(s); also enforces update guards (e.g. balance floors).
+            update (dict): MongoDB update document (e.g. `{"$inc": {"points": -5}}`).
+
+        Returns:
+            dict | None: Updated record, or `None` if no record matched `condition`.
+        """
+        return await self.db[collection].find_one_and_update(
+            condition, update, return_document=ReturnDocument.AFTER
+        )
 
 
 mongo = MongoFacade()

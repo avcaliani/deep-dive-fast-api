@@ -8,7 +8,7 @@
 
 /* API User at MongoDB */
 db.createUser({
-    user: "duff-api",
+    user: "dunder-mifflin-api",
     pwd: "123456",
-    roles: [{role: "readWrite", db: "duffDB"}]
+    roles: [{role: "readWrite", db: "dunderMifflinDB"}]
 });

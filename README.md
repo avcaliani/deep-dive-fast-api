@@ -1,6 +1,6 @@
 <div align="center">
 
-# Duff API
+# Dunder Mifflin Rewards API
 
 ![License](https://img.shields.io/github/license/avcaliani/deep-dive-fast-api?logo=opensourceinitiative&logoColor=white&color=lightseagreen)
 ![Python](https://img.shields.io/badge/python-3.10.x-3776AB?logo=python&logoColor=white)
@@ -12,8 +12,8 @@
 My goal with this repository is an in-depth exploration of FastAPI internals, the async
 execution model, and production-ready backend design.
 
-**Duff Rewards Club**,  a members app for Duff drinkers.  
-Auth is your membership card, `/mood` is your daily check-in, `/emoji` is the "look under the cap" prize draw.
+**Schrute Bucks Rewards**, an employee rewards app inspired on "The Office" 📎  
+Auth is your employee badge, `/mood` is your daily morale check-in (earns Schrute Bucks), `/vending` is where you spend them.
 
 </div>
 
@@ -63,10 +63,6 @@ make install
 echo "
 [default]
 TOKEN_SECRET_KEY = '$(openssl rand -hex 32)'
-SECRET = '🍺'  # Dev Secret
-
-[prod]
-SECRET = '🤫'
 " > resources/.secrets.toml
 ```
 
@@ -99,8 +95,8 @@ Or build and run the API itself in a container (still requires `resources/.secre
 <summary>Show docker commands 👇</summary>
 
 ```bash
-docker build -t duff-api .
-docker run -p 8000:8000 --env APP_ENV=dev duff-api
+docker build -t dunder-mifflin-api .
+docker run -p 8000:8000 --env APP_ENV=dev dunder-mifflin-api
 ```
 
 </details>

@@ -1,10 +1,9 @@
+from app import middlewares
+from app.routers import base, mood, user, vending
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from starlette.middleware.base import BaseHTTPMiddleware
-
-from app import middlewares
-from app.routers import base, emoji, mood, user
 
 # API METADATA & DOCS
 # You don't have to fill all those fields in order to create an API.
@@ -18,10 +17,11 @@ from app.routers import base, emoji, mood, user
 # MORE INFO
 # Metadata: https://fastapi.tiangolo.com/tutorial/metadata/
 app = FastAPI(
-    title="Duff API",
-    description="Duff Rewards Club - a members app for Duff drinkers. Auth is your membership "
-    "card, /mood is your daily check-in, /emoji is the 'look under the cap' prize draw. 🍺",
-    version="2.0.0",
+    title="Dunder Mifflin Rewards API",
+    description="Schrute Bucks Rewards - Dunder Mifflin's employee rewards program. Auth is your "
+    "employee badge, /mood is your daily morale check-in (earns Schrute Bucks), /vending is where "
+    "you spend them. 📎",
+    version="3.0.0",
     contact={
         "name": "Anthony Caliani",
         "url": "https://github.com/avcaliani",
@@ -48,6 +48,6 @@ app.add_middleware(BaseHTTPMiddleware, dispatch=middlewares.add_process_time_hea
 
 # 👇 Routers
 app.include_router(base.router)
-app.include_router(emoji.router)
 app.include_router(mood.router)
 app.include_router(user.router)
+app.include_router(vending.router)

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon" type="image/svg+xml" href="/static/favicon.svg"/>
-    <title>Duff API</title>
+    <title>Dunder Mifflin Rewards API</title>
     <style>
         :root {
             --bg-dark: #241407;
@@ -226,12 +226,12 @@
 <body>
 <header>
     <div id="glow"></div>
-    <img id="mascot" src="/static/favicon.svg" alt="Duff API mascot bear"/>
-    <h1>Duff Rewards Club</h1>
+    <img id="mascot" src="/static/favicon.svg" alt="Dunder Mifflin Rewards mascot"/>
+    <h1>Schrute Bucks Rewards</h1>
     <p class="tagline">
-        A members app for Duff drinkers. <br/>
-        Auth is your membership card, <code>/mood</code>
-        is your daily check-in, <code>/emoji</code> is the "look under the cap" prize draw. 🍻</p>
+        Dunder Mifflin's employee rewards program. <br/>
+        Auth is your employee badge, <code>/mood</code>
+        is your daily morale check-in (earns Schrute Bucks), <code>/vending</code> is where you spend them. 📎</p>
     <nav>
         <a href="/docs">Swagger</a>
         <a href="/redoc">ReDoc</a>
@@ -260,14 +260,14 @@
             <span class="tag">login</span>
         </div>
         <pre><code>curl -s -X POST http://127.0.0.1:8000/auth \
-  --data-urlencode "username=bart@duff.com" \
+  --data-urlencode "username=dwight@dundermifflin.com" \
   --data-urlencode "password=Test1234!"</code></pre>
         <button class="copy-btn">📋 Copy</button>
         <p class="warn">Needs a matching user already in MongoDB with a bcrypt password hash — insert
             one directly if you haven't yet.</p>
     </div>
 
-    <p class="lead">Everything below needs a membership card — set <code>$TOKEN</code> from the
+    <p class="lead">Everything below needs an employee badge — set <code>$TOKEN</code> from the
         <code>/auth</code> response first: <code>export TOKEN=...</code></p>
 
     <div class="card">
@@ -276,20 +276,20 @@
             <code>/mood/{item}</code>
             <span class="tag">daily check-in</span>
         </div>
-        <pre><code>curl -s http://127.0.0.1:8000/mood/happy \
+        <pre><code>curl -s http://127.0.0.1:8000/mood/😁 \
   -H "Authorization: Bearer $TOKEN"</code></pre>
         <button class="copy-btn">📋 Copy</button>
-        <p class="warn"><code>item</code> is one of <code>happy</code>, <code>angry</code>,
-            <code>insightful</code>.</p>
+        <p class="warn"><code>item</code> is one of <code>😁</code>, <code>😡</code>,
+            <code>🤔</code>.</p>
     </div>
 
     <div class="card">
         <div class="card-head">
             <span class="method">GET</span>
-            <code>/emoji/</code>
-            <span class="tag">prize draw</span>
+            <code>/vending/</code>
+            <span class="tag">browse catalog</span>
         </div>
-        <pre><code>curl -s http://127.0.0.1:8000/emoji/ \
+        <pre><code>curl -s http://127.0.0.1:8000/vending/ \
   -H "Authorization: Bearer $TOKEN"</code></pre>
         <button class="copy-btn">📋 Copy</button>
     </div>
@@ -297,12 +297,25 @@
     <div class="card">
         <div class="card-head">
             <span class="method">GET</span>
-            <code>/emoji/{item}</code>
-            <span class="tag">cap by index</span>
+            <code>/vending/{item}</code>
+            <span class="tag">item by index</span>
         </div>
-        <pre><code>curl -s http://127.0.0.1:8000/emoji/0 \
+        <pre><code>curl -s http://127.0.0.1:8000/vending/0 \
   -H "Authorization: Bearer $TOKEN"</code></pre>
         <button class="copy-btn">📋 Copy</button>
+    </div>
+
+    <div class="card">
+        <div class="card-head">
+            <span class="method">POST</span>
+            <code>/vending/{item}</code>
+            <span class="tag">redeem</span>
+        </div>
+        <pre><code>curl -s -X POST http://127.0.0.1:8000/vending/0 \
+  -H "Authorization: Bearer $TOKEN"</code></pre>
+        <button class="copy-btn">📋 Copy</button>
+        <p class="warn">Spends Schrute Bucks — returns <code>402</code> if your balance can't cover
+            the item's cost.</p>
     </div>
 
     <div class="card">
@@ -331,15 +344,15 @@
         <div class="card-head">
             <span class="method">POST</span>
             <code>/users/</code>
-            <span class="tag">new member</span>
+            <span class="tag">new hire</span>
         </div>
         <pre><code>curl -s -X POST http://127.0.0.1:8000/users/ \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
-    "name": "Homer Simpson",
-    "email": "homer@duff.com",
-    "birthdate": "1990-01-01",
+    "name": "Dwight Schrute",
+    "email": "dwight@dundermifflin.com",
+    "birthdate": "1970-01-20",
     "password": "Test1234!"<!-- pragma: allowlist secret -->
   }'</code></pre>
         <button class="copy-btn">📋 Copy</button>

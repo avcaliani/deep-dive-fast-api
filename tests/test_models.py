@@ -1,13 +1,13 @@
 import time
 
-from app.models import User
+from app.models import User, VendingItem
 
 
 def _make_user() -> User:
     return User(
-        name="Homer",
-        email="homer@duff.com",
-        birthdate="1990-01-01",
+        name="Dwight",
+        email="dwight@dundermifflin.com",
+        birthdate="1970-01-20",
         password="secret",  # pragma: allowlist secret
     )
 
@@ -19,3 +19,9 @@ def test_user_default_timestamps_are_generated_per_instance():
 
     assert first.updated_at != second.updated_at
     assert first.created_at != second.created_at
+
+
+def test_vending_item_requires_emoji_name_and_cost():
+    item = VendingItem(emoji="🏆", name="Dundie Award", cost=50)
+
+    assert item.cost == 50

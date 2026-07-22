@@ -1,7 +1,7 @@
 .DEFAULT_GOAL := info
 
 # Project
-PROJECT_NAME = "duff-api"
+PROJECT_NAME = "dunder-mifflin-api"
 CURRENT_VERSION = $(shell git describe --tags `git rev-list --tags --max-count=1` | grep --perl-regexp '\d+' --only-matching)
 NEW_VERSION = $(shell expr $(CURRENT_VERSION) + 1 )
 
