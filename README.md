@@ -17,6 +17,10 @@ Auth is your employee badge, `/mood` is your daily morale check-in (earns Schrut
 
 </div>
 
+> Why The Office? Dwight's fake productivity currency needed a real backend. Turning "Schrute Bucks"
+> into an actual points economy gave this teaching lab a use case worth earning and spending against,
+> instead of a `points` field nothing ever touched.
+
 ![home](.docs/home.png)
 
 > [!NOTE]
