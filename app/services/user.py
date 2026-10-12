@@ -1,7 +1,8 @@
 import logging as log
 
+from app import security as auth
+from app.infra import mongo
 from app.models import User
-from app.utils import auth, mongo
 
 COLLECTION = "users"
 

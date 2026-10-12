@@ -1,9 +1,10 @@
-from app import middlewares
-from app.routers import base, mood, user, vending
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from starlette.middleware.base import BaseHTTPMiddleware
+
+from app import middlewares
+from app.routers import base, mood, user, vending
 
 # API METADATA & DOCS
 # You don't have to fill all those fields in order to create an API.
