@@ -18,7 +18,7 @@ MESSAGES = {
 router = APIRouter(prefix="/mood", tags=["mood"], dependencies=[Depends(dependencies.get_user)])
 
 
-@router.get("/{item}")
+@router.post("/{item}")
 async def mood(
     item: Mood,
     text_mode: str | None = Query(None, min_length=4, max_length=8, pattern=r"CAPS(LOCK)?"),

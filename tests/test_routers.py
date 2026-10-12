@@ -49,12 +49,24 @@ def test_mood_checkin_awards_schrute_bucks(api_client, monkeypatch, auth_as):
     monkeypatch.setattr(mood.service, "earn_points", _fake_earn_points)
     auth_as(FAKE_USER)
 
-    response = api_client.get(f"/mood/{Mood.happy.value}")
+    response = api_client.post(f"/mood/{Mood.happy.value}")
 
     assert response.status_code == 200
     body = response.json()
     assert body["schrute_bucks_earned"] == mood.CHECKIN_POINTS
     assert body["balance"] == FAKE_USER["points"] + mood.CHECKIN_POINTS
+
+
+def test_mood_get_cannot_change_balance(api_client, monkeypatch, auth_as):
+    async def _fake_earn_points(email, amount):
+        raise AssertionError("GET must not award points")
+
+    monkeypatch.setattr(mood.service, "earn_points", _fake_earn_points)
+    auth_as(FAKE_USER)
+
+    response = api_client.get(f"/mood/{Mood.happy.value}")
+
+    assert response.status_code == 405
 
 
 def test_vending_redeem_success(api_client, monkeypatch, auth_as):

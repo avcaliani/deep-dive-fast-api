@@ -19,7 +19,7 @@ My goal with this repository is an in-depth exploration of FastAPI internals, th
 %%{ init: { 'look': 'handDrawn', 'theme': 'neutral' } }%%
 flowchart LR
     A[👤 Employee] -->|"POST /auth"| B[🔑 JWT Token]
-    B -->|"GET /mood/😁"| C[💰 Earn Schrute Bucks]
+    B -->|"POST /mood/😁"| C[💰 Earn Schrute Bucks]
     C -->|"GET /vending/"| D[🗂️ Browse Catalog]
     D -->|"POST /vending/0"| E{Enough Schrute Bucks?}
     E -->|Yes| F[🏆 200 - Reward Redeemed]

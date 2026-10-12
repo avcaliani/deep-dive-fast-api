@@ -375,7 +375,7 @@
         </div>
 
         <div class="live-step">
-            <h3>2. Check In — <code>GET /mood/{item}</code></h3>
+            <h3>2. Check In — <code>POST /mood/{item}</code></h3>
             <div class="live-row">
                 <button class="run-btn" onclick="checkIn('😁')">😁 Happy</button>
                 <button class="run-btn" onclick="checkIn('😡')">😡 Angry</button>
@@ -429,11 +429,11 @@
 
     <div class="card">
         <div class="card-head">
-            <span class="method">GET</span>
+            <span class="method">POST</span>
             <code>/mood/{item}</code>
             <span class="tag">daily check-in</span>
         </div>
-        <pre><code>curl -s http://127.0.0.1:8000/mood/😁 \
+        <pre><code>curl -s -X POST http://127.0.0.1:8000/mood/😁 \
   -H "Authorization: Bearer $TOKEN"</code></pre>
         <button class="copy-btn">📋 Copy</button>
         <p class="warn"><code>item</code> is one of <code>😁</code>, <code>😡</code>,
@@ -549,7 +549,7 @@
     }
 
     async function checkIn(mood) {
-        const response = await fetch(`/mood/${encodeURIComponent(mood)}`, {headers: authHeader()});
+        const response = await fetch(`/mood/${encodeURIComponent(mood)}`, {method: 'POST', headers: authHeader()});
         await renderResult('result-mood', response);
     }
 
