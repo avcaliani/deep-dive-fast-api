@@ -9,6 +9,8 @@
 ![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)
 ![Latest Tag](https://img.shields.io/github/v/tag/avcaliani/deep-dive-fast-api?logo=github&logoColor=white&color=blueviolet)
 
+![Cellular](https://media.giphy.com/media/SW3PNayoSGXao/giphy.gif)
+
 My goal with this repository is an in-depth exploration of FastAPI internals, the async execution model, and production-ready backend design.
 
 **Schrute Bucks Rewards**, an employee rewards app inspired on "The Office" 📎
@@ -17,13 +19,29 @@ My goal with this repository is an in-depth exploration of FastAPI internals, th
 
 ```mermaid
 %%{ init: { 'look': 'handDrawn', 'theme': 'neutral' } }%%
-flowchart LR
-    A[👤 Employee] -->|"POST /auth"| B[🔑 JWT Token]
-    B -->|"POST /mood/😁"| C[💰 Earn Schrute Bucks]
-    C -->|"GET /vending/"| D[🗂️ Browse Catalog]
-    D -->|"POST /vending/0"| E{Enough Schrute Bucks?}
-    E -->|Yes| F[🏆 200 - Reward Redeemed]
-    E -->|No| G[🚫 402 - Not Enough Schrute Bucks]
+sequenceDiagram
+    actor E as Employee
+    participant A@{ "type": "boundary" } as Rewards API
+    participant M@{ "type": "database" } as MongoDB
+
+    E->>A: POST /auth
+    A->>M: Find user and check password
+    A-->>E: JWT token
+
+    E->>A: POST /mood/😁 (Bearer token)
+    A->>M: Add check-in points
+    A-->>E: 200 - Schrute Bucks earned
+
+    E->>A: GET /vending/
+    A-->>E: Catalog
+
+    E->>A: POST /vending/0 (Bearer token)
+    A->>M: Spend points (only if balance covers the cost)
+    alt Enough Schrute Bucks
+        A-->>E: 200 - Reward redeemed
+    else Not enough Schrute Bucks
+        A-->>E: 402 - Not enough Schrute Bucks
+    end
 ```
 
 > [!NOTE]
@@ -84,6 +102,30 @@ uvx pre-commit run --all-files
 
 # Update locked dependencies
 make update-deps
+```
+
+</details>
+
+<details>
+<summary>Project structure 👇</summary>
+
+```text
+.
+├── app/
+│   ├── main.py          # FastAPI app entrypoint
+│   ├── routers/         # endpoints (auth, mood, vending, users)
+│   ├── services/        # business logic
+│   ├── infra/           # MongoDB client
+│   ├── security.py      # JWT and password hashing
+│   ├── dependencies.py  # Bearer token -> current user
+│   ├── models.py        # Pydantic models
+│   └── config.py        # Dynaconf settings loader
+├── static/              # homepage with the interactive playground
+├── resources/           # settings, Mongo init script, log config
+├── scripts/             # one-off scripts (create demo user)
+├── tests/               # unit tests
+├── docker-compose.yml   # MongoDB and API containers
+└── Dockerfile
 ```
 
 </details>
