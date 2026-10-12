@@ -1,6 +1,6 @@
 [project]
 name = "dunder-mifflin-api"
-version = "4.0.1"
+version = "4.0.2"
 description = "Dunder Mifflin Rewards API"
 readme = "README.md"
 authors = [{ name = "Anthony Caliani", email = "avcaliani.it@gmail.com" }]
