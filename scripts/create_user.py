@@ -5,8 +5,8 @@
 # uv run python scripts/create_user.py
 import asyncio
 
-from app.utils import auth
-from app.utils.mongo import mongo
+from app import security as auth
+from app.infra.mongo import mongo
 from bson import ObjectId
 
 EMAIL = "dwight@dundermifflin.com"

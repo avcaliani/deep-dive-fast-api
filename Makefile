@@ -24,6 +24,6 @@ create-user:
 run:
 	# APP_ENV is an environment variable used by Dynaconf
 	# to indicate which profile should be used.
-	APP_ENV=dev uv run uvicorn main:app --log-config "resources/log-config.yml" --reload
+	APP_ENV=dev uv run uvicorn app.main:app --log-config "resources/log-config.yml" --reload
 
 .PHONY: info install update-deps test create-user run

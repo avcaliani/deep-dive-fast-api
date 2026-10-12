@@ -1,8 +1,8 @@
 from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 
+from app import security as auth
 from app.services import user as service
-from app.utils import auth
 
 # It will use "/auth" as default endpoint for authentication.
 SCHEME = OAuth2PasswordBearer(tokenUrl="auth")

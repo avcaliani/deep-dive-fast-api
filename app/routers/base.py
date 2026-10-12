@@ -1,9 +1,9 @@
 from fastapi import APIRouter
 from fastapi.responses import HTMLResponse
 
+from app import security as auth
 from app.models import Login
 from app.services import user as service
-from app.utils import auth
 
 router = APIRouter()
 
