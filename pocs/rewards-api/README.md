@@ -2,12 +2,12 @@
 
 # Rewards API
 
-![License](https://img.shields.io/github/license/avcaliani/deep-dive-fast-api?logo=opensourceinitiative&logoColor=white&color=lightseagreen)
+![License](https://img.shields.io/github/license/avcaliani/lab-fast-api?logo=opensourceinitiative&logoColor=white&color=lightseagreen)
 ![Python](https://img.shields.io/badge/python-3.10.x-3776AB?logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white)
 ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?logo=mongodb&logoColor=white)
 ![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)
-![Latest Tag](https://img.shields.io/github/v/tag/avcaliani/deep-dive-fast-api?logo=github&logoColor=white&color=blueviolet)
+![Latest Tag](https://img.shields.io/github/v/tag/avcaliani/lab-fast-api?logo=github&logoColor=white&color=blueviolet)
 
 ![Cellular](https://media.giphy.com/media/SW3PNayoSGXao/giphy.gif)
 
@@ -16,6 +16,8 @@ My goal with this repository is an in-depth exploration of FastAPI internals, th
 **Schrute Bucks Rewards**, an employee rewards app inspired on "The Office" 📎
 
 </div>
+
+Part of [FastAPI Lab](../../README.md).
 
 ```mermaid
 %%{ init: { 'look': 'handDrawn', 'theme': 'neutral' } }%%
@@ -148,5 +150,5 @@ make update-deps
 - [FastAPI: docs](https://fastapi.tiangolo.com/) — the framework this whole repo explores
 - [pydantic: docs](https://docs.pydantic.dev/) — v2 data validation, used throughout `app/models.py`
 - [uv: docs](https://docs.astral.sh/uv/) — dependency management
-- [pre-commit: docs](https://pre-commit.com/) — hooks run in CI, see `.pre-commit-config.yaml`
+- [pre-commit: docs](https://pre-commit.com/) — hooks run in CI, see [`.pre-commit-config.yaml`](../../.pre-commit-config.yaml)
 - [MongoDB: Quick Start FastAPI](https://www.mongodb.com/developer/quickstart/python-quickstart-fastapi/) — the ObjectId pattern in `app/models.py` follows this guide
