@@ -49,6 +49,13 @@ sequenceDiagram
 > The homepage has an interactive playground to run every endpoint live,
 > plus copy-paste curl commands for each one.
 
+<details>
+<summary>Playground preview 👇</summary>
+
+![Playground](.docs/screenshot.png)
+
+</details>
+
 ## Getting Started
 
 ### 💻 Run local
