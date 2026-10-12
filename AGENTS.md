@@ -5,6 +5,8 @@
 
 ## Repo Layout
 
+The app lives in `pocs/rewards-api`; paths below are relative to that folder.
+
 - `app/routers/` - API route handlers
 - `app/services/` - business logic
 - `app/infra/` - MongoDB facade and database access
@@ -22,7 +24,7 @@
 - `docker-compose.yml` - local MongoDB service and the containerized API (`docker` profile)
 - `Dockerfile` - container build for the API
 - `pyproject.toml` / `uv.lock` - dependencies, managed with uv
-- `.github/ISSUE_TEMPLATE.md` - default GitHub issue template
+- `../../.github/ISSUE_TEMPLATE.md` - default GitHub issue template
 
 ## How to run
 
@@ -35,7 +37,7 @@ Requires `resources/.secrets.toml` (see README) and MongoDB running via `docker-
 - run: `make run`
 - update deps: `make update-deps`
 
-The Makefile and Dockerfile start Uvicorn with `app.main:app`. Tests import the application from `app.main`. Run commands from the repository root so relative `static/` and `resources/` paths resolve correctly.
+The Makefile and Dockerfile start Uvicorn with `app.main:app`. Tests import the application from `app.main`. Run commands from `pocs/rewards-api` so relative `static/` and `resources/` paths resolve correctly.
 
 ## Releasing
 
