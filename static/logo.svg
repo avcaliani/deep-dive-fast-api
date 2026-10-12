@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" fill="none">
+  <title>Dunder Mifflin office</title>
+  <g stroke="#172D43" stroke-width="5" stroke-linejoin="round">
+    <path d="M27 143V44L91 24V143Z" fill="#3776AB"/>
+    <path d="M91 24L122 44V72H91Z" fill="#27597F"/>
+    <path d="M91 72H139V143H91Z" fill="#FFD343"/>
+    <path d="M39 53L52 49V68L39 72ZM65 45L78 41V60L65 64ZM39 84L52 80V99L39 103ZM65 76L78 72V91L65 95ZM39 115L52 111V130L39 134Z" fill="#F6F9FC"/>
+    <path d="M64 143V110L79 105V143" fill="#A9D7EC"/>
+    <path d="M103 85H128V96H103Z" fill="#FFF9DE"/>
+    <path d="M107 143V111H125V143" fill="#FFF9DE"/>
+    <path d="M12 143V135C12 124 27 124 27 135V143ZM139 143V135C139 124 154 124 154 135V143Z" fill="#8DBA91"/>
+    <path d="M7 146H155" stroke-linecap="round"/>
+  </g>
+</svg>
