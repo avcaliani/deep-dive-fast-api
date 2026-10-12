@@ -1,594 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg"/>
-    <title>Dunder Mifflin Rewards API</title>
-    <style>
-        :root {
-            --bg-dark: #171b26;
-            --bg-darker: #0d0f16;
-            --gold: #C68E22;
-            --gold-light: #F1CE6B;
-            --cream: #F3EDE0;
-            --ink: #14151a;
-            --card-bg: #1E2333;
-            --card-border: #333c56;
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-darker) 100%);
-            color: var(--cream);
-            text-align: center;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
-
-        a {
-            text-decoration: none;
-            color: var(--gold-light);
-        }
-
-        a:hover {
-            color: var(--cream);
-        }
-
-        header {
-            position: relative;
-            padding: 3em 1em 2em 1em;
-            overflow: hidden;
-        }
-
-        #glow {
-            position: absolute;
-            top: -40px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 360px;
-            height: 360px;
-            background: radial-gradient(circle, rgba(198, 142, 34, 0.35) 0%, rgba(198, 142, 34, 0) 70%);
-            pointer-events: none;
-        }
-
-        #mascot {
-            position: relative;
-            width: 190px;
-            height: auto;
-        }
-
-        h1 {
-            position: relative;
-            margin: 0.4em 0 0 0;
-            font-size: 2.2em;
-            color: var(--gold-light);
-        }
-
-        .tagline {
-            position: relative;
-            margin: 0.5em auto 0 auto;
-            max-width: 32em;
-            color: var(--cream);
-            opacity: 0.85;
-            font-size: 0.95em;
-        }
-
-        nav {
-            position: relative;
-            margin-top: 1.3em;
-        }
-
-        nav a {
-            display: inline-block;
-            margin: 0 0.4em;
-            padding: 0.5em 1.1em;
-            border: 1px solid var(--card-border);
-            border-radius: 999px;
-            font-size: 0.9em;
-        }
-
-        nav a:hover {
-            border-color: var(--gold);
-            background: rgba(198, 142, 34, 0.1);
-        }
-
-        #clock {
-            display: block;
-            position: relative;
-            margin-top: 1.2em;
-            color: var(--gold-light);
-            font-size: small;
-            opacity: 0.8;
-        }
-
-        main {
-            max-width: 640px;
-            margin: 0 auto;
-            padding: 0 1.2em 2em 1.2em;
-        }
-
-        main h2 {
-            color: var(--gold-light);
-            margin-bottom: 0.2em;
-        }
-
-        summary.section-toggle {
-            cursor: pointer;
-            font-size: 1.5em;
-            font-weight: bold;
-            color: var(--gold-light);
-            margin-bottom: 0.2em;
-            list-style: none;
-        }
-
-        summary.section-toggle::-webkit-details-marker {
-            display: none;
-        }
-
-        summary.section-toggle::before {
-            content: "▸ ";
-        }
-
-        details[open] summary.section-toggle::before {
-            content: "▾ ";
-        }
-
-        main > p.lead {
-            opacity: 0.75;
-            margin-top: 0;
-            font-size: 0.9em;
-        }
-
-        .card {
-            text-align: left;
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 1em 1.2em;
-            margin: 1.2em 0;
-        }
-
-        .card-head {
-            display: flex;
-            align-items: center;
-            gap: 0.5em;
-            margin-bottom: 0.6em;
-            font-size: 0.95em;
-        }
-
-        .method {
-            font-weight: bold;
-            color: var(--ink);
-            background: var(--gold);
-            border-radius: 4px;
-            padding: 0.15em 0.5em;
-            font-size: 0.8em;
-        }
-
-        .card-head code {
-            color: var(--cream);
-        }
-
-        .tag {
-            margin-left: auto;
-            opacity: 0.6;
-            font-size: 0.8em;
-        }
-
-        pre {
-            background: var(--bg-darker);
-            border-radius: 8px;
-            padding: 0.9em 1em;
-            overflow-x: auto;
-            margin: 0 0 0.7em 0;
-        }
-
-        pre code {
-            font-family: "SF Mono", Consolas, Monaco, monospace;
-            font-size: 0.82em;
-            color: var(--gold-light);
-            white-space: pre;
-        }
-
-        .copy-btn {
-            font-family: inherit;
-            font-size: 0.85em;
-            color: var(--cream);
-            background: rgba(198, 142, 34, 0.15);
-            border: 1px solid var(--card-border);
-            border-radius: 6px;
-            padding: 0.4em 0.8em;
-            cursor: pointer;
-        }
-
-        .copy-btn:hover {
-            border-color: var(--gold);
-        }
-
-        .warn {
-            margin: 0.7em 0 0 0;
-            font-size: 0.82em;
-            opacity: 0.8;
-            line-height: 1.4;
-        }
-
-        .warn code {
-            font-size: 0.95em;
-        }
-
-        .live-card {
-            text-align: left;
-            background: var(--card-bg);
-            border: 1px solid var(--gold);
-            border-radius: 12px;
-            padding: 1.2em 1.2em 1.4em 1.2em;
-            margin: 1.2em 0 2em 0;
-        }
-
-        .live-step {
-            padding: 1em 0;
-            border-top: 1px solid var(--card-border);
-        }
-
-        .live-step:first-of-type {
-            border-top: none;
-            padding-top: 0.2em;
-        }
-
-        .live-step h3 {
-            margin: 0 0 0.6em 0;
-            font-size: 1em;
-            color: var(--gold-light);
-        }
-
-        .live-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5em;
-            align-items: center;
-        }
-
-        input[type="text"], input[type="password"] {
-            font-family: inherit;
-            font-size: 0.85em;
-            color: var(--cream);
-            background: var(--bg-darker);
-            border: 1px solid var(--card-border);
-            border-radius: 6px;
-            padding: 0.5em 0.7em;
-            flex: 1 1 12em;
-        }
-
-        input[type="text"]:focus, input[type="password"]:focus {
-            outline: none;
-            border-color: var(--gold);
-        }
-
-        .run-btn {
-            font-family: inherit;
-            font-weight: bold;
-            font-size: 0.85em;
-            color: var(--ink);
-            background: var(--gold);
-            border: none;
-            border-radius: 6px;
-            padding: 0.55em 1em;
-            cursor: pointer;
-        }
-
-        .run-btn:hover {
-            background: var(--gold-light);
-        }
-
-        .catalog-item {
-            font-family: inherit;
-            font-size: 0.85em;
-            color: var(--cream);
-            background: var(--bg-darker);
-            border: 1px solid var(--card-border);
-            border-radius: 6px;
-            padding: 0.5em 0.8em;
-            cursor: pointer;
-        }
-
-        .catalog-item:hover {
-            border-color: var(--gold);
-        }
-
-        .result {
-            margin-top: 0.8em;
-            background: var(--bg-darker);
-            border-left: 3px solid var(--card-border);
-            border-radius: 6px;
-            padding: 0.7em 0.9em;
-            font-family: "SF Mono", Consolas, Monaco, monospace;
-            font-size: 0.8em;
-            white-space: pre-wrap;
-            word-break: break-word;
-        }
-
-        .result.ok {
-            border-left-color: #4CAF6D;
-        }
-
-        .result.error {
-            border-left-color: #C6524B;
-        }
-
-        footer {
-            padding: 3em 0 2.5em 0;
-        }
-
-        #github {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: rgba(243, 237, 224, 0.1);
-            font-size: 1.4em;
-            transition: background 0.15s ease;
-        }
-
-        #github:hover {
-            background: rgba(243, 237, 224, 0.2);
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#3776ab">
+  <meta name="description" content="Clock in, earn Schrute Bucks, and explore every request in the Dunder Mifflin Rewards API playground.">
+  <title>Dunder Mifflin | The API office</title>
+  <link rel="icon" type="image/svg+xml" href="/static/logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&amp;icon_names=api,arrow_outward,code,coffee,dashboard,description,group,refresh,terminal,visibility,visibility_off&amp;display=block">
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/app.js" defer></script>
 </head>
-
 <body>
-<header>
-    <div id="glow"></div>
-    <img id="mascot" src="/static/favicon.svg" alt="Schrute Bucks Dundie-style award medal"/>
-    <h1>Schrute Bucks Rewards</h1>
-    <p class="tagline">
-        Dunder Mifflin's employee rewards program. <br/>
-        Auth is your employee badge, <code>/mood</code>
-        is your daily morale check-in (earns Schrute Bucks), <code>/vending</code> is where you spend them. 📎</p>
-    <nav>
-        <a href="/docs">Swagger</a>
-        <a href="/redoc">ReDoc</a>
+  <aside class="sidebar">
+    <a class="brand" href="/" aria-label="Dunder Mifflin home"><img src="/static/logo.svg" alt="" width="54" height="54"><span>DUNDER<br>MIFFLIN<span class="brand-caption">PAPER COMPANY</span></span></a>
+    <div class="sidebar-label">YOUR WORKSPACE</div>
+    <nav aria-label="Workspace">
+      <button class="nav-link active" data-panel="office"><span class="nav-icon material-symbols-outlined" aria-hidden="true">dashboard</span> The office <span class="nav-count">01</span></button>
+      <button class="nav-link" data-panel="people"><span class="nav-icon material-symbols-outlined" aria-hidden="true">group</span> Employee directory <span class="nav-count">02</span></button>
     </nav>
-    <span id="clock">...</span>
-</header>
-
-<main>
-    <h2>🖥️ Try It Live</h2>
-    <p class="lead">Same flow as the diagram in the README — click through it for real.</p>
-
-    <div class="live-card">
-        <div class="live-step">
-            <h3>1. Login — <code>POST /auth</code></h3>
-            <div class="live-row">
-                <input type="text" id="live-email" value="dwight@dundermifflin.com"/>
-                <input type="password" id="live-password" value="Test1234!"/>
-                <button class="run-btn" onclick="login()">Login</button>
-            </div>
-            <div class="result" id="result-login"></div>
+    <div class="sidebar-label resources-label">THE REFERENCE DESK</div>
+    <nav aria-label="Resources">
+      <a class="nav-link" href="/docs" target="_blank" rel="noopener"><span class="nav-icon material-symbols-outlined" aria-hidden="true">api</span> Swagger docs <span class="external material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
+      <a class="nav-link" href="/redoc" target="_blank" rel="noopener"><span class="nav-icon material-symbols-outlined" aria-hidden="true">description</span> API reference <span class="external material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
+      <a class="nav-link" href="https://github.com/avcaliani/deep-dive-fast-api" target="_blank" rel="noopener"><span class="nav-icon material-symbols-outlined" aria-hidden="true">code</span> Source code <span class="external material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
+    </nav>
+    <div class="sidebar-note"><span class="tiny-heading">A NOTE FROM MANAGEMENT</span><p>Great paper.<br>Even better endpoints.</p><span class="note-signature">Scranton branch · Est. 1949</span></div>
+    <div class="sidebar-footer"><span class="status-dot"></span> Interactive API playground</div>
+  </aside>
+  <div class="workspace">
+    <header class="topbar"><span class="breadcrumb">Scranton branch <span>/</span> <strong id="page-label">The office</strong></span><div class="topbar-right"><span class="sandbox-tag">LIVE API</span><span id="session-label">Guest session</span><span class="avatar" id="avatar">DM</span></div></header>
+    <main>
+      <section class="hero">
+        <div><div class="eyebrow"><span class="small-rule"></span> DUNDER MIFFLIN REWARDS</div><h1>Another day.<br><span>Another Schrute Buck.</span></h1><p>Your office perks, powered by Python. Sign in, check in,<br class="desktop-break"> and turn a good mood into something from the vending machine.</p><div class="hero-footer"><span class="mono">REQUEST → RESPONSE → REWARD</span><span class="hero-stamp">100% real requests</span></div></div>
+        <div class="hero-art" aria-hidden="true"><div class="art-orbit"></div><div class="floating-label">SCRANTON, PA</div><img src="/static/logo.svg" alt="" width="200" height="200"><div class="art-ground"></div><span class="art-caption">Small office. Big API energy.</span></div>
+      </section>
+      <section class="stats" aria-label="Session overview"><div class="stat"><span class="stat-label">EMPLOYEE BADGE</span><strong id="employee-status">Not clocked in</strong><span id="employee-subtitle">Sign in to get started</span></div><div class="stat balance-stat"><span class="stat-label">YOUR SCHRUTE BUCKS</span><strong><span id="balance">···</span><span class="currency"> SB</span></strong><span>Earn it. Spend it. Repeat.</span></div><div class="stat"><span class="stat-label">REQUESTS THIS SESSION</span><strong id="request-count">00</strong><span id="last-request">Your first request is waiting</span></div></section>
+      <div class="workbench">
+        <div class="actions">
+          <section id="office-panel" class="panel">
+            <div class="section-heading"><h2>Your daily routine</h2><span>THREE STEPS. ZERO PAPERWORK.</span></div>
+            <article class="action-card"><div class="card-title"><span class="step">01</span><div><h3>Pick up your badge</h3><p>Every good day starts with authentication.</p></div><span class="endpoint"><b class="post">POST</b> /auth</span></div>
+              <form id="login-form"><div class="login-fields"><label>Employee email<input id="login-email" value="dwight@dundermifflin.com" name="username" type="email" autocomplete="username" placeholder="Your employee email" required></label><div><label for="login-password">Password</label><div class="password-field"><input id="login-password" value="Test1234!" name="password" type="password" autocomplete="current-password" placeholder="Your password" required><button class="password-toggle" type="button" data-password-toggle="login-password" aria-controls="login-password" aria-label="Show password" aria-pressed="false"><span class="material-symbols-outlined" aria-hidden="true">visibility</span></button></div></div></div><div class="card-bottom"><span id="login-hint" class="hint">Demo login is prefilled. Initialize the demo user first.</span><div class="button-row"><button id="logout" class="text-button" type="button" hidden>Sign out</button><button class="button primary" type="submit">Clock in <span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></button></div></div></form>
+            </article>
+            <article class="action-card"><div class="card-title"><span class="step">02</span><div><h3>How's the office treating you?</h3><p>A little morale check earns a few bucks.</p></div><span class="endpoint"><b class="post">POST</b> /mood/{item}</span></div>
+              <div class="mood-grid"><button class="mood-button" data-mood="😁" data-protected><span class="mood-emoji">😁</span><strong>Pretty great</strong><span>Assistant to the happy</span></button><button class="mood-button" data-mood="😡" data-protected><span class="mood-emoji">😡</span><strong>Not my day</strong><span>Someone took my stapler</span></button><button class="mood-button" data-mood="🤔" data-protected><span class="mood-emoji">🤔</span><strong>Feeling insightful</strong><span>I have a few theories</span></button></div><div class="card-bottom"><span class="hint" id="mood-hint">Sign in, then pick your mood to check in.</span><label class="toggle-label"><input id="caps-mode" type="checkbox"> CAPS LOCK energy</label></div>
+            </article>
+            <article class="action-card"><div class="card-title"><span class="step">03</span><div><h3>The break room is open</h3><p>You earned those bucks. Make them count.</p></div><span class="endpoint"><b class="get">GET</b> /vending/</span></div><div class="catalog-toolbar"><span class="hint">Browse the shelves, inspect an item, or redeem a treat.</span><button id="browse" class="button secondary small" data-protected>Load catalog <span class="material-symbols-outlined" aria-hidden="true">refresh</span></button></div><div id="catalog" class="catalog"><div class="catalog-empty"><span class="material-symbols-outlined" aria-hidden="true">coffee</span><p>A well-deserved break is one request away.</p><small>Load the catalog to see what's in stock.</small></div></div></article>
+          </section>
+          <section id="people-panel" class="panel" hidden><div class="section-heading"><h2>Employee directory</h2><span>PUT A FACE TO THE REQUEST.</span></div>
+            <article class="action-card"><div class="card-title"><span class="step">01</span><div><h3>Your employee file</h3><p>See the account behind your current badge.</p></div><span class="endpoint"><b class="get">GET</b> /users/me</span></div><button id="my-profile" class="button primary" data-protected>Get my profile <span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></button></article>
+            <article class="action-card"><div class="card-title"><span class="step">02</span><div><h3>Find a colleague</h3><p>Look up an employee by their database ID.</p></div><span class="endpoint"><b class="get">GET</b> /users/{id}</span></div><form id="lookup-form" class="inline-form"><label>Employee ID<input id="lookup-id" type="text" placeholder="24-character MongoDB ID" required></label><button class="button secondary" data-protected>Look up <span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></button></form></article>
+            <article class="action-card"><div class="card-title"><span class="step">03</span><div><h3>Welcome someone aboard</h3><p>Create an employee account with your authenticated badge.</p></div><span class="endpoint"><b class="post">POST</b> /users/</span></div><form id="create-form"><div class="form-grid"><label>Full name<input id="new-name" type="text" autocomplete="off" required></label><label>Email<input id="new-email" type="email" autocomplete="off" required></label><label>Birthdate<input id="new-birthdate" type="date" required></label><div><label for="new-password">Password</label><div class="password-field"><input id="new-password" type="password" autocomplete="new-password" required><button class="password-toggle" type="button" data-password-toggle="new-password" aria-controls="new-password" aria-label="Show password" aria-pressed="false"><span class="material-symbols-outlined" aria-hidden="true">visibility</span></button></div></div></div><div class="card-bottom"><span class="hint">The API validates your account details.</span><button class="button primary" data-protected>Create employee <span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></button></div></form></article>
+          </section>
         </div>
-
-        <div class="live-step">
-            <h3>2. Check In — <code>POST /mood/{item}</code></h3>
-            <div class="live-row">
-                <button class="run-btn" onclick="checkIn('😁')">😁 Happy</button>
-                <button class="run-btn" onclick="checkIn('😡')">😡 Angry</button>
-                <button class="run-btn" onclick="checkIn('🤔')">🤔 Insightful</button>
-            </div>
-            <div class="result" id="result-mood"></div>
-        </div>
-
-        <div class="live-step">
-            <h3>3. Browse &amp; Redeem — <code>GET /vending/</code>, <code>POST /vending/{item}</code></h3>
-            <div class="live-row">
-                <button class="run-btn" onclick="browseCatalog()">Browse Catalog</button>
-            </div>
-            <div class="live-row" id="catalog-items" style="margin-top: 0.8em;"></div>
-            <div class="result" id="result-vending"></div>
-        </div>
-    </div>
-
-    <h2>Try It Out</h2>
-    <p class="lead">Every API endpoint — copy, paste, run.</p>
-
-    <details>
-    <summary class="section-toggle">Show endpoints</summary>
-
-    <div class="card">
-        <div class="card-head">
-            <span class="method">GET</span>
-            <code>/</code>
-            <span class="tag">home page</span>
-        </div>
-        <pre><code>curl -s http://127.0.0.1:8000/</code></pre>
-        <button class="copy-btn">📋 Copy</button>
-    </div>
-
-    <div class="card">
-        <div class="card-head">
-            <span class="method">POST</span>
-            <code>/auth</code>
-            <span class="tag">login</span>
-        </div>
-        <pre><code>curl -s -X POST http://127.0.0.1:8000/auth \
-  -H "Content-Type: application/json" \
-  -d '{"username": "dwight@dundermifflin.com", "password": "Test1234!"}'<!-- pragma: allowlist secret --></code></pre>
-        <button class="copy-btn">📋 Copy</button>
-        <p class="warn">Needs a matching user already in MongoDB — run <code>make create-user</code> to
-            create this exact demo user if you haven't yet.</p>
-    </div>
-
-    <p class="lead">Everything below needs an employee badge — set <code>$TOKEN</code> from the
-        <code>/auth</code> response first: <code>export TOKEN=...</code></p>
-
-    <div class="card">
-        <div class="card-head">
-            <span class="method">POST</span>
-            <code>/mood/{item}</code>
-            <span class="tag">daily check-in</span>
-        </div>
-        <pre><code>curl -s -X POST http://127.0.0.1:8000/mood/😁 \
-  -H "Authorization: Bearer $TOKEN"</code></pre>
-        <button class="copy-btn">📋 Copy</button>
-        <p class="warn"><code>item</code> is one of <code>😁</code>, <code>😡</code>,
-            <code>🤔</code>.</p>
-    </div>
-
-    <div class="card">
-        <div class="card-head">
-            <span class="method">GET</span>
-            <code>/vending/</code>
-            <span class="tag">browse catalog</span>
-        </div>
-        <pre><code>curl -s http://127.0.0.1:8000/vending/ \
-  -H "Authorization: Bearer $TOKEN"</code></pre>
-        <button class="copy-btn">📋 Copy</button>
-    </div>
-
-    <div class="card">
-        <div class="card-head">
-            <span class="method">GET</span>
-            <code>/vending/{item}</code>
-            <span class="tag">item by index</span>
-        </div>
-        <pre><code>curl -s http://127.0.0.1:8000/vending/0 \
-  -H "Authorization: Bearer $TOKEN"</code></pre>
-        <button class="copy-btn">📋 Copy</button>
-    </div>
-
-    <div class="card">
-        <div class="card-head">
-            <span class="method">POST</span>
-            <code>/vending/{item}</code>
-            <span class="tag">redeem</span>
-        </div>
-        <pre><code>curl -s -X POST http://127.0.0.1:8000/vending/0 \
-  -H "Authorization: Bearer $TOKEN"</code></pre>
-        <button class="copy-btn">📋 Copy</button>
-        <p class="warn">Spends Schrute Bucks — returns <code>402</code> if your balance can't cover
-            the item's cost.</p>
-    </div>
-
-    <div class="card">
-        <div class="card-head">
-            <span class="method">GET</span>
-            <code>/users/me</code>
-            <span class="tag">who am i</span>
-        </div>
-        <pre><code>curl -s http://127.0.0.1:8000/users/me \
-  -H "Authorization: Bearer $TOKEN"</code></pre>
-        <button class="copy-btn">📋 Copy</button>
-    </div>
-
-    <div class="card">
-        <div class="card-head">
-            <span class="method">GET</span>
-            <code>/users/{id}</code>
-            <span class="tag">user by id</span>
-        </div>
-        <pre><code>curl -s http://127.0.0.1:8000/users/652a1f1e1f1e1f1e1f1e1f1e \
-  -H "Authorization: Bearer $TOKEN"</code></pre>
-        <button class="copy-btn">📋 Copy</button>
-    </div>
-
-    <div class="card">
-        <div class="card-head">
-            <span class="method">POST</span>
-            <code>/users/</code>
-            <span class="tag">new hire</span>
-        </div>
-        <pre><code>curl -s -X POST http://127.0.0.1:8000/users/ \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "Dwight Schrute",
-    "email": "dwight@dundermifflin.com",
-    "birthdate": "1970-01-20",
-    "password": "Test1234!"<!-- pragma: allowlist secret -->
-  }'</code></pre>
-        <button class="copy-btn">📋 Copy</button>
-    </div>
-    </details>
-</main>
-
-<footer>
-    <a id="github" href="https://github.com/avcaliani">🐙</a>
-</footer>
-
-<script type="application/javascript">
-    let token = null;
-
-    function authHeader() {
-        return token ? {"Authorization": `Bearer ${token}`} : {};
-    }
-
-    async function renderResult(elementId, response) {
-        const el = document.getElementById(elementId);
-        const body = await response.json();
-        el.className = `result ${response.ok ? "ok" : "error"}`;
-        el.textContent = `${response.status} ${response.statusText}\n${JSON.stringify(body, null, 2)}`;
-        return body;
-    }
-
-    async function login() {
-        const email = document.getElementById('live-email').value;
-        const password = document.getElementById('live-password').value;
-        const response = await fetch('/auth', {
-            method: 'POST',
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({username: email, password}),
-        });
-        const body = await renderResult('result-login', response);
-        token = response.ok ? body.token : null;
-    }
-
-    async function checkIn(mood) {
-        const response = await fetch(`/mood/${encodeURIComponent(mood)}`, {method: 'POST', headers: authHeader()});
-        await renderResult('result-mood', response);
-    }
-
-    async function browseCatalog() {
-        const response = await fetch('/vending/', {headers: authHeader()});
-        const body = await renderResult('result-vending', response);
-        const container = document.getElementById('catalog-items');
-        container.innerHTML = '';
-        if (!response.ok) return;
-        body.items.forEach((item, index) => {
-            const btn = document.createElement('button');
-            btn.className = 'catalog-item';
-            btn.textContent = `${item.emoji} ${item.name} — ${item.cost}`;
-            btn.onclick = () => redeem(index);
-            container.appendChild(btn);
-        });
-    }
-
-    async function redeem(index) {
-        const response = await fetch(`/vending/${index}`, {method: 'POST', headers: authHeader()});
-        await renderResult('result-vending', response);
-    }
-
-    const clock = document.getElementById('clock');
-    setInterval(
-        () => clock.textContent = new Date().toLocaleString().replace(",", " -"),
-        1000
-    );
-
-    document.querySelectorAll('.copy-btn').forEach((btn) => {
-        const original = btn.textContent;
-        btn.addEventListener('click', async () => {
-            const code = btn.previousElementSibling.textContent;
-            await navigator.clipboard.writeText(code);
-            btn.textContent = '✅ Copied!';
-            setTimeout(() => btn.textContent = original, 1500);
-        });
-    });
-</script>
+        <aside class="inspector" aria-label="API request inspector"><div class="inspector-header"><span class="terminal-icon material-symbols-outlined" aria-hidden="true">terminal</span><div><h2>The paper trail</h2><span>Every request. Every response.</span></div><span class="live-dot" aria-hidden="true"></span></div><div class="inspector-request"><span id="inspect-method" class="method-pill">READY</span><code id="inspect-path">Waiting for a request</code></div><div class="inspector-tabs" role="tablist" aria-label="Inspector view"><button class="inspector-tab selected" role="tab" aria-selected="true" aria-controls="inspector-output" id="tab-response" data-view="response">Response</button><button class="inspector-tab" role="tab" aria-selected="false" aria-controls="inspector-output" id="tab-request" data-view="request">Request</button><button class="inspector-tab" role="tab" aria-selected="false" aria-controls="inspector-output" id="tab-curl" data-view="curl">cURL</button><button id="copy-output" class="copy-button" aria-label="Copy inspector output" title="Copy output">Copy</button></div><div class="response-meta"><span id="response-status">No request yet</span><span id="response-time">··· ms</span></div><div id="inspector-output" role="tabpanel" aria-labelledby="tab-response" tabindex="0"><pre id="response-code">// Your API story starts here.
+//
+// 1. Clock in with your employee account.
+// 2. Choose a mood to earn Schrute Bucks.
+// 3. Trade your bucks for a little joy.
+//
+// Watch the real JSON response appear.</pre></div><div class="history-heading"><span>RECENT REQUESTS</span><button id="clear-history" class="copy-button">Clear</button></div><div id="request-history" class="request-history"><div class="history-empty">Nothing on file. Yet.</div></div><div class="inspector-footer"><span class="material-symbols-outlined" aria-hidden="true">code</span> Session-only badge · Sensitive fields masked</div></aside>
+      </div>
+      <footer class="page-footer"><span>Built with Python &amp; FastAPI. Made for curious people.</span><span>THE PEOPLE PERSON'S API PEOPLE.</span></footer>
+    </main>
+  </div>
+  <div id="announcement" class="announcement" role="status" aria-live="polite"></div>
 </body>
-
 </html>
