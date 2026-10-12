@@ -63,6 +63,9 @@ sequenceDiagram
 API on your machine, MongoDB in Docker.
 
 ```bash
+# All commands run from the poc folder
+cd pocs/rewards-api
+
 # Install dependencies
 make install
 
@@ -83,6 +86,9 @@ make run
 API and MongoDB both in Docker, using the `docker` profile from `resources/settings.toml`.
 
 ```bash
+# All commands run from the poc folder
+cd pocs/rewards-api
+
 # Set the token secret (Dynaconf reads DYNACONF_* env vars, no secrets file needed)
 export DYNACONF_TOKEN_SECRET_KEY="$(openssl rand -hex 32)"
 
