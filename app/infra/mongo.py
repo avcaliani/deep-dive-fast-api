@@ -45,9 +45,11 @@ class MongoFacade:
         Returns:
             dict: Created Record.
         """
-        new_record = await self.db[collection].insert_one(jsonable_encoder(data))
-        new_record = await self.find_one(collection, {"id_": new_record.inserted_id})
-        return new_record
+        result = await self.db[collection].insert_one(jsonable_encoder(data))
+        record = await self.find_one(collection, {"_id": result.inserted_id})
+        if record is None:
+            raise LookupError(f"Inserted record '{result.inserted_id}' not found in '{collection}'!")
+        return record
 
     async def find_one_and_update(self, collection: str, condition: dict, update: dict) -> dict | None:
         """Atomically update and return the matching `collection` record.

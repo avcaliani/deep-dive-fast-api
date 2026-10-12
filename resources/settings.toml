@@ -3,6 +3,7 @@ TOKEN_ALGORITHM = 'HS256'
 TOKEN_EXPIRE_MINUTES = 60
 MONGODB_DATABASE = "dunderMifflinDB"
 MONGODB_CONFIG = { "user" = "dunder-mifflin-api", "password" = "123456", "host" = "127.0.0.1", "port" = "27017" }
+CORS_ORIGINS = ["http://127.0.0.1:8000", "http://localhost:8000"]
 CHECKIN_POINTS = 5
 VENDING_ITEMS = [
     { emoji = '🏆', name = "Dundie Award", cost = 50 },
