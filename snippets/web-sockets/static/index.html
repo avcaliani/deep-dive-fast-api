@@ -1,39 +1,76 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="chrome-extension://ckkdlimhmcjmikdlpkmbgfkaikojcbjk/themes/github.css" id="_theme">
-        <title>Web Sockets</title>
-    </head>
-    <body>
-        <h1>💬 WebSocket Chat</h1>
-        <form action="" onsubmit="sendMessage(event)">
-            <input type="text" id="messageText" autocomplete="off"/>
-            <button>Send</button>
-        </form>
-        <ul id='messages'></ul>
-        <script>
-            const API_URL = "ws://localhost:8000"
-            var ws = new WebSocket(`${API_URL}/ws`);
-            ws.onmessage = function(event) {
-                var messages = document.getElementById('messages')
-                var message = document.createElement('li')
-                var content = document.createTextNode(event.data)
-                message.appendChild(content)
-                messages.appendChild(message)
-            };
-            function sendMessage(event) {
-                var input = document.getElementById("messageText")
-                ws.send(input.value)
-                input.value = ''
-                event.preventDefault()
-            }
-
-            var wsUpdates = new WebSocket(`${API_URL}/ws/updates`);
-            wsUpdates.onmessage = function(event) {
-                received_at = new Date().toLocaleString("en-US")
-                console.log(`New message! Received at 👉 ${received_at}`)
-                console.log(event)
-            };
-        </script>
-    </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dunder Mifflin PA System</title>
+  <style>
+    body { margin: 0; padding: 1rem; background: #2b2b2b; color: #e8e0c8; font-family: "Courier New", monospace; }
+    h1 { margin: 0 0 1rem; font-size: 1.3rem; letter-spacing: .15em; text-transform: uppercase; }
+    main { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; }
+    section { background: #3a3a35; border: 3px solid #1c1c1c; border-radius: 8px; padding: 1rem; }
+    h2 { margin: 0 0 .5rem; font-size: 1rem; }
+    .lamp { display: inline-block; width: .8rem; height: .8rem; border-radius: 50%; background: #c0392b; }
+    .lamp.on { background: #2ecc71; box-shadow: 0 0 8px #2ecc71; }
+    ul { list-style: none; margin: .5rem 0; padding: 0; height: 260px; overflow-y: auto; background: #1c1c1c; }
+    li { padding: .25rem .5rem; border-bottom: 1px dashed #444; }
+    li.sent { color: #f1c40f; }
+    form { display: flex; gap: .5rem; }
+    input { flex: 1; padding: .4rem; background: #1c1c1c; color: inherit; border: 1px solid #666; font: inherit; }
+    button { padding: .4rem .8rem; background: #c0392b; color: #fff; border: 0; font: inherit; cursor: pointer; }
+    #drill { display: none; margin-bottom: .5rem; padding: .5rem; background: #c0392b; color: #fff; font-weight: bold; }
+    #drill.show { display: block; animation: blink .5s 6; }
+    @keyframes blink { 50% { opacity: .3; } }
+  </style>
+</head>
+<body>
+  <h1>Dunder Mifflin PA System</h1>
+  <main>
+    <section>
+      <h2><span class="lamp" id="lamp-intercom"></span> Intercom</h2>
+      <ul id="intercom-log"></ul>
+      <form id="intercom-form"><input id="line" autocomplete="off" placeholder="Say something (close hangs up)"><button>Send</button></form>
+    </section>
+    <section>
+      <h2><span class="lamp" id="lamp-ticker"></span> Schrute Bucks Ticker: <span id="total">0</span> SB</h2>
+      <div id="drill">🚨 Dwight: FIRE DRILL! Everybody out!</div>
+      <ul id="ticker-log"></ul>
+    </section>
+  </main>
+  <script>
+    const base = `${location.protocol === "https:" ? "wss" : "ws"}://${location.host}/ws`;
+    const add = (id, text, cls) => {
+      const log = document.getElementById(id), li = document.createElement("li");
+      li.textContent = text; li.className = cls || "";
+      log.append(li); log.scrollTop = log.scrollHeight;
+    };
+    function connect(path, lamp, onMessage) {
+      const ws = new WebSocket(`${base}/${path}`);
+      const light = (on) => document.getElementById(lamp).classList.toggle("on", on);
+      ws.onopen = () => light(true);
+      ws.onmessage = (event) => onMessage(event.data);
+      ws.onclose = () => { light(false); setTimeout(() => connect(path, lamp, onMessage), 2000); };
+      return ws;
+    }
+    let intercom = connect("intercom", "lamp-intercom", (text) => add("intercom-log", text));
+    let total = 0, events = 0;
+    connect("ticker", "lamp-ticker", (data) => {
+      const e = JSON.parse(data);
+      total += e.schrute_bucks; events += 1;
+      document.getElementById("total").textContent = total;
+      add("ticker-log", `${e.at} ${e.employee} ${e.type}: ${e.detail} (${e.schrute_bucks > 0 ? "+" : ""}${e.schrute_bucks})`);
+      if (events % 7 === 0) {
+        const drill = document.getElementById("drill");
+        drill.classList.add("show"); setTimeout(() => drill.classList.remove("show"), 3000);
+      }
+    });
+    document.getElementById("intercom-form").onsubmit = (event) => {
+      event.preventDefault();
+      const input = document.getElementById("line");
+      if (!input.value || intercom.readyState !== WebSocket.OPEN) return;
+      add("intercom-log", `You: ${input.value}`, "sent");
+      intercom.send(input.value); input.value = "";
+    };
+  </script>
+</body>
 </html>
