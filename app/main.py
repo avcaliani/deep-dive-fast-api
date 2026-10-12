@@ -22,7 +22,7 @@ app = FastAPI(
     description="Schrute Bucks Rewards - Dunder Mifflin's employee rewards program. Auth is your "
     "employee badge, /mood is your daily morale check-in (earns Schrute Bucks), /vending is where "
     "you spend them. 📎",
-    version="4.0.0",
+    version="4.0.1",
     contact={
         "name": "Anthony Caliani",
         "url": "https://github.com/avcaliani",
