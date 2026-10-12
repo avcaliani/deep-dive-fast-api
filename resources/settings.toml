@@ -15,7 +15,7 @@ VENDING_ITEMS = [
     { emoji = '📠', name = "Fax From Future Dwight", cost = 20 },
 ]
 
-[prod]
+[docker]
 VENDING_ITEMS = [
     { emoji = '📺', name = "Flat Screen from Warehouse", cost = 40 },
     { emoji = '🛋️', name = "Kevin's Couch Corner Seat", cost = 15 },

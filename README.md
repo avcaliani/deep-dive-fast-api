@@ -33,22 +33,47 @@ flowchart LR
 
 ## Getting Started
 
+### 💻 Run local
+
+API on your machine, MongoDB in Docker.
+
 ```bash
-# One-time setup
+# Install dependencies
 make install
+
+# Create the secrets file
 echo "
 [default]
 TOKEN_SECRET_KEY = '$(openssl rand -hex 32)'
 " > resources/.secrets.toml
 
 # Start MongoDB, create the demo user, and run the API
-docker-compose up -d
+docker-compose up -d mongo
 make create-user
 make run
 ```
 
+### 🐳 Run in Docker
+
+API and MongoDB both in Docker, using the `docker` profile from `resources/settings.toml`.
+
+```bash
+# Set the token secret (Dynaconf reads DYNACONF_* env vars, no secrets file needed)
+export DYNACONF_TOKEN_SECRET_KEY="$(openssl rand -hex 32)"
+
+# Build and start MongoDB and the API
+docker-compose up -d --build
+
+# Create the demo user (runs on your machine, MongoDB port is published)
+make install
+make create-user
+```
+
+> [!NOTE]
+> Both modes use port 8000, so stop one before starting the other.
+
 <details>
-<summary>More commands: tests, formatting, Docker 👇</summary>
+<summary>More commands: tests, formatting 👇</summary>
 
 ```bash
 # Run tests
@@ -59,13 +84,6 @@ uvx pre-commit run --all-files
 
 # Update locked dependencies
 make update-deps
-```
-
-Or run the API itself in a container (still requires `resources/.secrets.toml` and MongoDB running as above).
-
-```bash
-docker build -t dunder-mifflin-api .
-docker run -p 8000:8000 --env APP_ENV=dev dunder-mifflin-api
 ```
 
 </details>

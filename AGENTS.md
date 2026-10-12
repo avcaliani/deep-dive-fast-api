@@ -19,14 +19,14 @@
 - `resources/settings.toml` / `resources/.secrets.toml` - Dynaconf settings
 - `resources/init-mongo.js` - Mongo init script (creates the API's DB user)
 - `resources/log-config.yml` - Uvicorn logging config
-- `docker-compose.yml` - local MongoDB service
+- `docker-compose.yml` - local MongoDB service and the containerized API (`docker` profile)
 - `Dockerfile` - container build for the API
 - `pyproject.toml` / `uv.lock` - dependencies, managed with uv
 - `.github/ISSUE_TEMPLATE.md` - default GitHub issue template
 
 ## How to run
 
-Requires `resources/.secrets.toml` (see README) and MongoDB running via `docker-compose up -d`.
+Requires `resources/.secrets.toml` (see README) and MongoDB running via `docker-compose up -d mongo`.
 
 - install deps: `make install`
 - activate the virtualenv before running Python commands: `source .venv/bin/activate`
