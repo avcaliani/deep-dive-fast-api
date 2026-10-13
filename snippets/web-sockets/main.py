@@ -38,12 +38,7 @@ def now() -> str:
 
 def reply(text: str) -> dict:
     employee, catchphrase = choice(list(EMPLOYEES.items()))
-    return {
-        "employee": employee, 
-        "catchphrase": catchphrase, 
-        "heard": text, 
-        "at": now()
-    }
+    return {"employee": employee, "catchphrase": catchphrase, "heard": text, "at": now()}
 
 
 def make_event(socket_id: str, number: int) -> dict:
@@ -63,6 +58,7 @@ def make_event(socket_id: str, number: int) -> dict:
         "schrute_bucks": bucks,
         "at": now(),
     }
+
 
 # ------–––––------–––––--------------------
 #  WebSocket Endpoints
