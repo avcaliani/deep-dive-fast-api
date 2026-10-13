@@ -1,21 +1,15 @@
-"""Dunder Mifflin PA System: two WebSocket channels and one page.
-
-Run: uv run uvicorn main:app --reload
-"""
-
 import asyncio
 from datetime import datetime, timezone
 from itertools import count
-from pathlib import Path
 from random import choice, randint
 from uuid import uuid4
 
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
-from fastapi.responses import HTMLResponse
 
-app = FastAPI(title="Dunder Mifflin PA System")
+# ------–––––------–––––--------------------
+#  Helpers
+# ------–––––------–––––-------------------------
 
-PAGE = Path(__file__).parent / "static" / "index.html"
 CHECKIN_POINTS = 5
 EMPLOYEES = {
     "Michael": "That's what she said!",
@@ -42,9 +36,14 @@ def now() -> str:
     return datetime.now(timezone.utc).strftime("%H:%M:%S")
 
 
-def reply(text: str) -> str:
+def reply(text: str) -> dict:
     employee, catchphrase = choice(list(EMPLOYEES.items()))
-    return f'{employee}: "{catchphrase}" (heard "{text}" at {now()} UTC)'
+    return {
+        "employee": employee, 
+        "catchphrase": catchphrase, 
+        "heard": text, 
+        "at": now()
+    }
 
 
 def make_event(socket_id: str, number: int) -> dict:
@@ -65,10 +64,11 @@ def make_event(socket_id: str, number: int) -> dict:
         "at": now(),
     }
 
+# ------–––––------–––––--------------------
+#  WebSocket Endpoints
+# ------–––––------–––––-------------------------
 
-@app.get("/", response_class=HTMLResponse)
-async def root() -> HTMLResponse:
-    return HTMLResponse(PAGE.read_text(encoding="utf8"))
+app = FastAPI(title="Dunder Mifflin PA System")
 
 
 @app.websocket("/ws/intercom")
@@ -80,7 +80,7 @@ async def intercom(websocket: WebSocket) -> None:
             if text.strip() == "close":
                 await websocket.close()
                 return
-            await websocket.send_text(reply(text))
+            await websocket.send_json(reply(text))
     except WebSocketDisconnect:
         return
 
