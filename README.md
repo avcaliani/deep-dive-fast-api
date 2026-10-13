@@ -31,6 +31,6 @@ Every project owns its `pyproject.toml`: run commands from its folder, always th
 
 > **PS.:** This is an unofficial fan project for learning FastAPI, not affiliated with or endorsed by NBCUniversal.
 
---- 
+---
 
 [FastAPI: docs](https://fastapi.tiangolo.com/) / [uv: docs](https://docs.astral.sh/uv/)

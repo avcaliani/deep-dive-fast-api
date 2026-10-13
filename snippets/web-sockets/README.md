@@ -22,6 +22,6 @@ open client/index.html
 /ws/ticker      # a `check-in` or `redeem` JSON event every 1, 3 or 5 seconds.
 ```
 
---- 
+---
 
 [FastAPI: WebSockets](https://fastapi.tiangolo.com/advanced/websockets/) / [Starlette: WebSockets](https://www.starlette.dev/websockets/)
