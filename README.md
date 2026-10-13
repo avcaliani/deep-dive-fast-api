@@ -8,11 +8,8 @@
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)
 ![uv](https://img.shields.io/badge/uv-DE5FE9?style=flat&logo=uv&logoColor=white)
 ![License](https://img.shields.io/github/license/avcaliani/lab-fast-api?style=flat&logo=opensourceinitiative&logoColor=white&color=green)
-![Latest Tag](https://img.shields.io/github/v/tag/avcaliani/lab-fast-api?style=flat&logo=github&logoColor=white&color=blueviolet)
 
 Personal [FastAPI](https://fastapi.tiangolo.com/) learning sandbox: one full app (the Office-themed Rewards API) and small isolated snippets.
-
-**PS.:** This is an unofficial fan project for learning FastAPI, not affiliated with or endorsed by NBCUniversal.
 
 ## Structure
 
@@ -29,11 +26,11 @@ Personal [FastAPI](https://fastapi.tiangolo.com/) learning sandbox: one full app
 
 Every project owns its `pyproject.toml`: run commands from its folder, always through `uv` (never outside the virtual env).
 
-- Rewards API: see [pocs/rewards-api/README.md](pocs/rewards-api/README.md)
-- Snippets: see [snippets/README.md](snippets/README.md)
+- Rewards API: see [pocs/rewards-api/](pocs/rewards-api/)
+- Snippets: see [snippets/](snippets/)
 
-## Links
+> **PS.:** This is an unofficial fan project for learning FastAPI, not affiliated with or endorsed by NBCUniversal.
 
-- [FastAPI: docs](https://fastapi.tiangolo.com/)
-- [uv: docs](https://docs.astral.sh/uv/)
-- [Agent context](AGENTS.md)
+--- 
+
+[FastAPI: docs](https://fastapi.tiangolo.com/) / [uv: docs](https://docs.astral.sh/uv/)
