@@ -12,6 +12,8 @@
 
 Personal [FastAPI](https://fastapi.tiangolo.com/) learning sandbox: one full app (the Office-themed Rewards API) and small isolated snippets.
 
+**PS.:** This is an unofficial fan project for learning FastAPI, not affiliated with or endorsed by NBCUniversal.
+
 ## Structure
 
 ```text

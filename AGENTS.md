@@ -31,6 +31,12 @@ Local `make run` needs the gitignored `resources/.secrets.toml` (see the poc REA
 
 Snippets, from the snippet folder (example): `uv run uvicorn main:app --reload`
 
+The WebSocket snippet has a responsive Python blue/yellow page with connection labels,
+automatic reconnect, and logs capped at 100 messages. Intercom sending resumes after reconnect.
+Page icons load Google Material Symbols through the Google Fonts CDN.
+Ticker rows separate employee, UTC time, activity, and signed amounts; the session balance has a coin icon.
+Intercom messages share the ticker layout, with sender, UTC time, text, and send/reply icons.
+
 Lint and format (same as CI), from anywhere in the repo: `uvx pre-commit run --all-files`
 
 ## Conventions
