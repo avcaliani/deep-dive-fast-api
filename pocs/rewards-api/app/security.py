@@ -1,8 +1,8 @@
 from datetime import datetime, timedelta, timezone
 
+import bcrypt
 from fastapi import HTTPException
 from jose import JWTError, jwt
-from passlib.context import CryptContext
 
 from app.config import settings
 
@@ -15,15 +15,14 @@ EXCEPTION_INVALID_CREDENTIALS = HTTPException(
     detail="Invalid credentials!",
     headers={"WWW-Authenticate": "Bearer"},
 )
-CONTEXT = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 def hash_password(password: str) -> str:
-    return CONTEXT.hash(password)
+    return bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
 
 
 def check_password(plain: str, hashed: str) -> bool:
-    return CONTEXT.verify(plain, hashed)
+    return bcrypt.checkpw(plain.encode(), hashed.encode())
 
 
 def create_token(subject: str, mood: str):
