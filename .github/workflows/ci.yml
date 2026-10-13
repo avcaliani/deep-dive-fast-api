@@ -17,6 +17,9 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: pre-commit/action@v3.0.1
+        env:
+          # no-commit-to-branch is a local guard, it always fails on pushes to main
+          SKIP: no-commit-to-branch
 
   test:
     name: Test
